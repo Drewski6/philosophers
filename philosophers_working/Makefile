@@ -6,7 +6,7 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 14:27:11 by dpentlan          #+#    #+#              #
-#    Updated: 2023/07/05 16:59:48 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/07/10 17:55:27 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ NOCOLOR='\033[0m'
 # ***** Sources *****
 
 SRCS = philo.c \
+	time_utils.c \
 
 SRCS_DIR = srcs/
 
@@ -39,19 +40,21 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 CC = cc
 
+PTHREAD = -lpthread
+
 # ***** Build *****
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo -e -n ${GREEN}
-	@printf "===== MAKING FDF =====\n"
+	@printf "===== MAKING PHILO =====\n"
 	@echo -e -n ${NOCOLOR}
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(PTHREAD) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) -c $(CFLAGS) -I$(INCS_DIR) $< -o $@
+	@$(CC) -c $(CFLAGS) $(PTHREAD) -I$(INCS_DIR) $< -o $@
 
 clean:
 	@rm -f $(OBJS)
