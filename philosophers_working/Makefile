@@ -6,7 +6,7 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 14:27:11 by dpentlan          #+#    #+#              #
-#    Updated: 2023/07/10 17:55:27 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/07/10 23:06:26 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ NOCOLOR='\033[0m'
 
 SRCS = philo.c \
 	time_utils.c \
+	arg_parse.c \
+	int_utils.c \
 
 SRCS_DIR = srcs/
 

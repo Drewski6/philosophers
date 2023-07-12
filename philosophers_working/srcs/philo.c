@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:58:03 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/07/10 19:24:49 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/07/10 23:27:09 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc < 5 || argc > 6)
-	{
-		printf("Error: Incorrect number of arguments.\n");
-		return (1);
-	}
-	if (argv) {}
+	t_args	args;
 
+	if (arg_count(argc))
+		return (1);
+	ft_bzero((void *)&args, sizeof(t_args));
+	if (arg_parse(argc, argv, &args))
+		return (1);
+	print_args(&args);
 	return (0);
 }
