@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:12:55 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/07/11 22:22:56 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:52:05 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	arg_count(int argc)
 	return (0);
 }
 
-int	verify_arg(char *arg, int *arg_int_value)
+static int	verify_arg(char *arg, int *arg_int_value)
 {
 	int	ret_int;
 
@@ -45,15 +45,5 @@ int	arg_parse(int argc, char **argv, t_args *args)
 			return (1);
 		i++;
 	}
-	return (0);
-}
-
-int	print_args(t_args *args)
-{
-	printf("num_philo: %d\n", args->num_philo);
-	printf("time_to_die: %d\n", args->time_to_die);
-	printf("time_to_eat: %d\n", args->time_to_eat);
-	printf("time_to_sleep: %d\n", args->time_to_sleep);
-	printf("num_tt_eat: %d\n", args->num_tt_eat);
 	return (0);
 }

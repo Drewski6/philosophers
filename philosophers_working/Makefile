@@ -6,7 +6,7 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 14:27:11 by dpentlan          #+#    #+#              #
-#    Updated: 2023/07/10 23:06:26 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/07/12 14:50:33 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS = philo.c \
 	time_utils.c \
 	arg_parse.c \
 	int_utils.c \
+	debug_funcs.c \
 
 SRCS_DIR = srcs/
 
