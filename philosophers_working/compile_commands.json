@@ -1,0 +1,31 @@
+[
+{
+	"directory" : "/home/drew/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/philo.c -o objs/philo.o",
+	"file" : "srcs/philo.c"
+}
+,
+{
+	"directory" : "/home/drew/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/time_utils.c -o objs/time_utils.o",
+	"file" : "srcs/time_utils.c"
+}
+,
+{
+	"directory" : "/home/drew/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/arg_parse.c -o objs/arg_parse.cc",
+	"file" : "srcs/arg_parse.c"
+}
+,
+{
+	"directory" : "/home/drew/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/int_utils.c -o objs/int_utils.o",
+	"file" : "srcs/int_utils.c"
+}
+,
+{
+	"directory" : "/home/drew/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/debug_funcs.c -o objs/debug_funcs.o",
+	"file" : "srcs/debug_funcs.c"
+}
+]

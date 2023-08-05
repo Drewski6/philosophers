@@ -5,66 +5,80 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/29 14:27:11 by dpentlan          #+#    #+#              #
-#    Updated: 2023/07/12 14:50:33 by dpentlan         ###   ########.fr        #
+#    Created: 2023/08/05 10:49:04 by dpentlan          #+#    #+#              #
+#    Updated: 2023/08/05 10:49:45 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NOCOLOR='\033[0m'
+CC				=	cc
 
-# ***** Sources *****
+SRC 			=	philo.c \
+					time_utils.c \
+					arg_parse.c \
+					int_utils.c \
+					debug_funcs.c \
 
-SRCS = philo.c \
-	time_utils.c \
-	arg_parse.c \
-	int_utils.c \
-	debug_funcs.c \
+NAME			=	philo
 
-SRCS_DIR = srcs/
+OBJ_FOLDER		=	objs/
 
-# ***** Includes *****
+CFLAGS			=	-Wall -Wextra -Werror -g
 
-INCS = philo.h
+SRC_FOLDER		=	srcs/
 
-INCS_DIR = includes/
+HEADERS_FOLDER	=	includes/\
 
-# ***** Objects *****
+# Libs used for libft, but philo does not allow this.
+LIBS			=	# libft/libft.a\
 
-OBJS = $(patsubst %.c,$(OBJS_DIR)%.o,$(SRCS))
+# Add other git repos
+# SUBMODULES		=	# libft/.git\
 
-OBJS_DIR = objs/
+LFLAGS			=	# -Llibft -lft
 
-# ***** Compile and Archiver *****
+DEPENDS		:=	$(patsubst %.c,$(OBJ_FOLDER)%.d,$(SRC))
+OBJS		:=	$(patsubst %.c,$(OBJ_FOLDER)%.o,$(SRC))
+COMMANDS	:=	$(patsubst %.c,$(OBJ_FOLDER)%.cc,$(SRC))
 
-CFLAGS = -Wall -Wextra -Werror -g
+all: $(NAME) compile_commands.json
 
-CC = cc
+-include $(DEPENDS)
 
-PTHREAD = -lpthread
+# $(SUBMODULES) :
+	# git submodule update --init --recursive libft
 
-# ***** Build *****
+%.a: # $(SUBMODULES)
+	make -C $(@D)
 
-all: $(NAME)
+$(NAME): $(LIBS) $(OBJS) # $(SUBMODULES)
+	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $@
 
-$(NAME): $(OBJS)
-	@echo -e -n ${GREEN}
-	@printf "===== MAKING PHILO =====\n"
-	@echo -e -n ${NOCOLOR}
-	@$(CC) $(CFLAGS) $(PTHREAD) $(OBJS) $(LIBFT) -o $(NAME)
+COMP_COMMAND = $(CC) -c $(CFLAGS) $(addprefix -I,$(HEADERS_FOLDER)) -MMD -MP $< -o $@
+CONCAT = awk 'FNR==1 && NR!=1 {print ","}{print}'
 
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	@mkdir -p $(OBJS_DIR)
-	@$(CC) -c $(CFLAGS) $(PTHREAD) -I$(INCS_DIR) $< -o $@
+$(OBJ_FOLDER)%.o $(OBJ_FOLDER)%.cc: $(SRC_FOLDER)%.c # Makefile $(SUBMODULES)
+	$(COMP_COMMAND)
+	@printf '{\n\t"directory" : "$(shell pwd)",\n\t"command" : "$(COMP_COMMAND)",\n\t"file" : "$<"\n}' > $(OBJ_FOLDER)$*.cc
 
-clean:
-	@rm -f $(OBJS)
-	@rm -rf $(OBJS_DIR)
+compile_commands.json : $(COMMANDS) Makefile
+	@echo "Making compile_commands.json"
+	@echo "[" > compile_commands.json
+	$(CONCAT) $(COMMANDS) >> compile_commands.json
+	@echo "]" >> compile_commands.json
 
-fclean: clean
-	@rm -f $(NAME)
-	@rm -f gdb.txt
+clean: # $(SUBMODULES)
+	rm -f $(OBJS) $(DEPENDS) $(COMMANDS)
+	# for lib in $(shell dirname $(LIBS)); do \
+	# 	make -C $$lib clean; \
+	# done
+
+fclean: clean # $(SUBMODULES)
+	rm -f $(NAME) compile_commands.json
+	# make -C libft fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re bonus
+.SUFFIXES:
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules

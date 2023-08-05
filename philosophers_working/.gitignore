@@ -1,2 +1,4 @@
 philo
 objs/*
+.cache/
+.cache/*
