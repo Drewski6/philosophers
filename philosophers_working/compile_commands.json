@@ -13,7 +13,7 @@
 ,
 {
 	"directory" : "/home/drew/Documents/ecole_42/philosophers/philosophers_working",
-	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/arg_parse.c -o objs/arg_parse.cc",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/arg_parse.c -o objs/arg_parse.o",
 	"file" : "srcs/arg_parse.c"
 }
 ,

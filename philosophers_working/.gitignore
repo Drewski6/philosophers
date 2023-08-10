@@ -1,4 +1,6 @@
 philo
-objs/*
+objs/*.o
+objs/*.d
+objs/*.cc
 .cache/
 .cache/*
