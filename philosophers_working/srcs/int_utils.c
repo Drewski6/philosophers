@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:35:38 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/07/12 14:42:17 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/08/10 20:57:34 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ bool	ft_atoi_backcheck(char *s_num, int num)
 		s_num++;
 	while (s_num[i])
 		i++;
-	if (num == -2147483648)
-	{
-		if (i == 10)
-			return (0);
+	if (i == 0)
 		return (1);
-	}
+	if (num == -2147483648 && i != 10)
+		return (1);
 	if (num < 0)
 		num *= -1;
 	while (i > 0)

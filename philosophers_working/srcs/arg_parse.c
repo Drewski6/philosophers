@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:12:55 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/07/12 14:52:05 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/08/10 21:08:43 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int	arg_parse(int argc, char **argv, t_args *args)
 	while (i < argc)
 	{
 		if (verify_arg(argv[i], &((int *)args)[i - 1]))
+		{
+			printf("Error: Invalid arguments.\n");
 			return (1);
+		}
 		i++;
 	}
 	return (0);
