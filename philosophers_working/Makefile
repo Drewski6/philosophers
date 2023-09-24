@@ -6,7 +6,7 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 10:49:04 by dpentlan          #+#    #+#              #
-#    Updated: 2023/08/05 10:49:45 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/09/24 14:51:18 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ SRC 			=	philo.c \
 					time_utils.c \
 					arg_parse.c \
 					int_utils.c \
+					threads.c \
+					lists.c \
 					debug_funcs.c \
 
 NAME			=	philo

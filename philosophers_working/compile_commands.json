@@ -25,6 +25,18 @@
 ,
 {
 	"directory" : "/home/drew/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/threads.c -o objs/threads.o",
+	"file" : "srcs/threads.c"
+}
+,
+{
+	"directory" : "/home/drew/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/lists.c -o objs/lists.o",
+	"file" : "srcs/lists.c"
+}
+,
+{
+	"directory" : "/home/drew/Documents/ecole_42/philosophers/philosophers_working",
 	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/debug_funcs.c -o objs/debug_funcs.o",
 	"file" : "srcs/debug_funcs.c"
 }
