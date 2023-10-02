@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:35:38 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/08/10 20:57:34 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:11:28 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,19 @@ int	ft_atoi(const char *nptr)
 		else
 			return (0);
 	}
+	return (0);
+}
+
+/*  *** ft_isdigit (42 is digit) ***
+ *
+ *  Takes an integer value for ascii character.
+ *  returns 1 if the character is a digit character.
+ *  returns 0 if the character is not a digit character.
+ */
+
+bool	ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
 	return (0);
 }

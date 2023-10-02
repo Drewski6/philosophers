@@ -6,13 +6,13 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:12:55 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/08/10 21:08:43 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:53:25 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	arg_count(int argc)
+bool	arg_count(int argc)
 {
 	if (argc < 5 || argc > 6)
 	{
@@ -22,19 +22,36 @@ int	arg_count(int argc)
 	return (0);
 }
 
-static int	verify_arg(char *arg, int *arg_int_value)
+static bool	verify_all_pos(char *arg)
 {
-	int	ret_int;
+	int	i;
 
-	ret_int = ft_atoi(arg);
-	if (ft_atoi_backcheck(arg, ret_int))
-		return (1);
-	else
-		*arg_int_value = ret_int;
+	i = 0;
+	while (arg[i])
+	{
+		if (!ft_isdigit(arg[i]))
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
-int	arg_parse(int argc, char **argv, t_args *args)
+static bool	verify_arg(char *arg, int *arg_int_value)
+{
+	int	ret_int;
+
+	if (verify_all_pos(arg))
+		return (1);
+	ret_int = ft_atoi(arg);
+	if (ft_atoi_backcheck(arg, ret_int))
+		return (1);
+	if (ret_int == 0)
+		return (1);
+	*arg_int_value = ret_int;
+	return (0);
+}
+
+bool	arg_parse(int argc, char **argv, t_args *args)
 {
 	int		i;
 
