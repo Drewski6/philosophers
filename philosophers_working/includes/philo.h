@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/02 15:18:36 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:31:54 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int		ft_atoi(const char *nptr);
 bool	ft_isdigit(int c);
 
 //	threads.c
-int		create_philos(t_info *info);
+bool	philo_init(int argc, char **argv, t_info *info);
+bool	create_philos(t_info *info);
 void	free_info(t_info *info);
 
 //	debug_funcs.c		To remove at the end.
