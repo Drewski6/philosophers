@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/02 14:11:58 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:54:41 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_philo
 //	time_utils.c
 
 //	arg_parse.c
-int		arg_count(int argc);
-int		arg_parse(int argc, char **argv, t_args *args);
+bool	arg_count(int argc);
+bool	arg_parse(int argc, char **argv, t_args *args);
 
 //	int_utils.c
 void	ft_bzero(void *str, size_t len);
@@ -49,6 +49,6 @@ int		ft_atoi(const char *nptr);
 bool	ft_isdigit(int c);
 
 //	debug_funcs.c		To remove at the end.
-int		print_args(t_args *args);
+void	print_args(t_args *args);
 
 #endif

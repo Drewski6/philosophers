@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:58:03 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/02 14:13:20 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:56:12 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int	main(int argc, char **argv)
 	ft_bzero((void *)&args, sizeof(t_args));
 	if (arg_parse(argc, argv, &args))
 		return (1);
+
 	return (0);
 }

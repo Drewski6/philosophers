@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/02 12:24:04 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:55:58 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	*philo_thread_entry_point(void *arg)
 	while (1)
 	{
 		printf("You created a new thread! samp_arg is: %d\n", *(int *)arg);
-		usleep(1000);
 	}
 	return (0);
 }
