@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:12:55 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/08/10 21:08:43 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:12:31 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,26 @@ int	arg_count(int argc)
 	return (0);
 }
 
+static bool	verify_all_pos(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (!ft_isdigit(arg[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 static int	verify_arg(char *arg, int *arg_int_value)
 {
 	int	ret_int;
 
+	if (verify_all_pos(arg))
+		return (1);
 	ret_int = ft_atoi(arg);
 	if (ft_atoi_backcheck(arg, ret_int))
 		return (1);
