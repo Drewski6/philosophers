@@ -31,6 +31,24 @@
 ,
 {
 	"directory" : "/mnt/nfs/homes/dpentlan/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/threads_2.c -o objs/threads_2.o",
+	"file" : "srcs/threads_2.c"
+}
+,
+{
+	"directory" : "/mnt/nfs/homes/dpentlan/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/monitor.c -o objs/monitor.o",
+	"file" : "srcs/monitor.c"
+}
+,
+{
+	"directory" : "/mnt/nfs/homes/dpentlan/Documents/ecole_42/philosophers/philosophers_working",
+	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/philo_actions.c -o objs/philo_actions.o",
+	"file" : "srcs/philo_actions.c"
+}
+,
+{
+	"directory" : "/mnt/nfs/homes/dpentlan/Documents/ecole_42/philosophers/philosophers_working",
 	"command" : "cc -c -Wall -Wextra -Werror -g -Iincludes/ -MMD -MP srcs/debug_funcs.c -o objs/debug_funcs.o",
 	"file" : "srcs/debug_funcs.c"
 }
