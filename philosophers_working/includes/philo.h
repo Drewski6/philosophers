@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/07 15:55:15 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/08 13:15:44 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_info
 
 //	time_utils.c
 t_ms	get_time(void);
+void	msleep(int time_in_ms);
 
 //	arg_parse.c
 bool	arg_count(int argc);
@@ -71,9 +72,9 @@ int		create_one_philo(t_info *info);
 void	ft_monitor(t_info *info);
 
 //	philo_actions.c
-void	philo_eat(t_info *info);
-void	philo_sleep(t_info *info);
-void	philo_wait(t_info *info);
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_wait(t_philo *philo);
 void	*pthread_entry_point(void *arg);
 
 //	debug_funcs.c		To remove at the end.

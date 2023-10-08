@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 15:40:56 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/07 15:18:31 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/08 12:37:38 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,5 @@ int	recall_philos(t_info *info)
 			return (printf("thread with ID %ld DNE\n", *current), 1);
 		i++;
 	}
-	return (0);
-}
-
-int	create_one_philo(t_info *info)
-{
-	(void) info;
-	
 	return (0);
 }
