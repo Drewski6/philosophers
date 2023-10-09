@@ -6,11 +6,12 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 22:52:59 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:19:30 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
 /*
 **	NAME
@@ -26,10 +27,6 @@ static bool	ft_create_philos(t_info *info)
 	int		i;
 
 	i = 0;
-	info->philos = (t_philo *)malloc(info->num_philo * sizeof(t_philo));
-	if (!info->philos)
-		return (printf("Error: malloc\n"), 1);
-	ft_bzero(info->philos, sizeof(t_philo) * info->num_philo);
 	while (i < info->num_philo)
 	{
 		info->philos[i].id = i;
@@ -53,9 +50,33 @@ static bool	ft_create_philos(t_info *info)
 
 static bool	ft_init_mutexes(t_info *info)
 {
+	int	i;
+
+	i = 0;
 	if (pthread_mutex_init(&info->m_printf, NULL))
 		return (1);
+	while (i < info->num_philo)
+		pthread_mutex_init(&info->philos[i++].m_fork, NULL);
 	return (0);
+}
+
+/*
+**	NAME
+		ft_destroy_mutexes
+**	DESCRIPTION
+		Destroys mutexes to wrap up.
+**	RETURN
+		Void function does not return a value.
+*/
+
+static void	ft_destroy_mutexes(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_destroy(&info->m_printf);
+	while (i < info->num_philo)
+		pthread_mutex_destroy(&info->philos[i++].m_fork);
 }
 
 /*
@@ -71,6 +92,7 @@ static bool	ft_init_mutexes(t_info *info)
 void	ft_free_info(t_info *info)
 {
 	ft_recall_philos(info);
+	ft_destroy_mutexes(info);
 	if (info->philos)
 		free(info->philos);
 	info->philos = NULL;
@@ -92,6 +114,10 @@ bool	ft_philo_init(int argc, char **argv, t_info *info)
 		return (1);
 	if (ft_arg_parse(argc, argv, info))
 		return (1);
+	info->philos = (t_philo *)malloc(info->num_philo * sizeof(t_philo));
+	if (!info->philos)
+		return (printf("Error: malloc\n"), 1);
+	ft_bzero(info->philos, sizeof(t_philo) * info->num_philo);
 	if (ft_init_mutexes(info))
 		return (1);
 	info->start_time = ft_get_time();
