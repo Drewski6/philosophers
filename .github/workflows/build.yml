@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Make philosophers
-      run: make
+      run: make -C philosophers_working
