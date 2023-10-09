@@ -5,3 +5,4 @@ objs/*.cc
 .cache/
 .cache/*
 gdb.txt
+compile_commands.json
