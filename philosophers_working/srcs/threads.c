@@ -6,16 +6,22 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 22:29:35 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:52:59 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdio.h>
-#include <pthread.h>
-#include <stdlib.h>
 
-bool	ft_create_philos(t_info *info)
+/*
+**	NAME
+		ft_create_philos
+**	DESCRIPTION
+		Loop that creates philosophers.
+**	RETURN
+		Returns 0 on Success and 1 on Failure.
+*/
+
+static bool	ft_create_philos(t_info *info)
 {
 	int		i;
 
@@ -36,6 +42,32 @@ bool	ft_create_philos(t_info *info)
 	return (0);
 }
 
+/*
+**	NAME
+		ft_init_mutexes
+**	DESCRIPTION
+		Initializes all mutexes that will be used.
+**	RETURN
+		Returns 0 on Success and 1 on Failure.
+*/
+
+static bool	ft_init_mutexes(t_info *info)
+{
+	if (pthread_mutex_init(&info->m_printf, NULL))
+		return (1);
+	return (0);
+}
+
+/*
+**	NAME
+		ft_free_info
+**	DESCRIPTION
+		Joins all open threads with ft_recall_philos then frees malloced
+		philo info.
+**	RETURN
+		Void function returns nothing.
+*/
+
 void	ft_free_info(t_info *info)
 {
 	ft_recall_philos(info);
@@ -44,13 +76,23 @@ void	ft_free_info(t_info *info)
 	info->philos = NULL;
 }
 
+/*
+**	NAME
+		ft_philo_init
+**	DESCRIPTION
+		Calls basic setup functions: Arg parsing, initializing mutexes, setting
+		start time, and calls function to create all philos.
+**	RETURN
+		Returns 0 on Success or 1 on Failure.
+*/
+
 bool	ft_philo_init(int argc, char **argv, t_info *info)
 {
 	if (ft_arg_count(argc))
 		return (1);
 	if (ft_arg_parse(argc, argv, info))
 		return (1);
-	if (pthread_mutex_init(&info->m_printf, NULL))
+	if (ft_init_mutexes(info))
 		return (1);
 	info->start_time = ft_get_time();
 	if (ft_create_philos(info))
@@ -58,7 +100,16 @@ bool	ft_philo_init(int argc, char **argv, t_info *info)
 	return (0);
 }
 
-int	ft_recall_philos(t_info *info)
+/*
+**	NAME
+		ft_recall_philos
+**	DESCRIPTION
+		Free function for any open threads in order to cleanly exit.
+**	RETURN
+		Bool function returns 0 on Success and 1 on Failure.
+*/
+
+bool	ft_recall_philos(t_info *info)
 {
 	int			i;
 	int			ret;

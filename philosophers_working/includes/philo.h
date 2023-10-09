@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 22:32:12 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:49:38 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ void	ft_philo_wait(t_philo *philo);
 void	*ft_pthread_entry_point(void *arg);
 
 //	threads.c
-bool	ft_philo_init(int argc, char **argv, t_info *info);
-bool	ft_create_philos(t_info *info);
+//	static bool	ft_create_philos(t_info *info);
 void	ft_free_info(t_info *info);
-int		ft_recall_philos(t_info *info);
+bool	ft_philo_init(int argc, char **argv, t_info *info);
+bool	ft_recall_philos(t_info *info);
 
 //	time_utils.c
 t_ms	ft_get_time(void);
