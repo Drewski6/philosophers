@@ -6,20 +6,20 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 10:49:04 by dpentlan          #+#    #+#              #
-#    Updated: 2023/10/09 22:29:49 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/10/09 22:38:37 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	cc
 
-SRC 			=	philo.c \
-					time_utils.c \
-					arg_parse.c \
-					int_utils.c \
-					threads.c \
-					monitor.c \
-					philo_actions.c \
+SRC 			=	arg_parse.c \
 					debug_funcs.c \
+					int_utils.c \
+					monitor.c \
+					philo.c \
+					philo_actions.c \
+					threads.c \
+					time_utils.c \
 
 NAME			=	philo
 
@@ -31,14 +31,6 @@ SRC_FOLDER		=	srcs/
 
 HEADERS_FOLDER	=	includes/\
 
-# Libs used for libft, but philo does not allow this.
-LIBS			=	# libft/libft.a\
-
-# Add other git repos
-# SUBMODULES		=	# libft/.git\
-
-LFLAGS			=	# -Llibft -lft
-
 DEPENDS		:=	$(patsubst %.c,$(OBJ_FOLDER)%.d,$(SRC))
 OBJS		:=	$(patsubst %.c,$(OBJ_FOLDER)%.o,$(SRC))
 COMMANDS	:=	$(patsubst %.c,$(OBJ_FOLDER)%.cc,$(SRC))
@@ -47,19 +39,16 @@ all: $(NAME) compile_commands.json
 
 -include $(DEPENDS)
 
-# $(SUBMODULES) :
-	# git submodule update --init --recursive libft
-
-%.a: # $(SUBMODULES)
+%.a:
 	make -C $(@D)
 
-$(NAME): $(LIBS) $(OBJS) # $(SUBMODULES)
+$(NAME): $(LIBS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $@
 
 COMP_COMMAND = $(CC) -c $(CFLAGS) $(addprefix -I,$(HEADERS_FOLDER)) -MMD -MP $< -o $@
 CONCAT = awk 'FNR==1 && NR!=1 {print ","}{print}'
 
-$(OBJ_FOLDER)%.o $(OBJ_FOLDER)%.cc: $(SRC_FOLDER)%.c # Makefile $(SUBMODULES)
+$(OBJ_FOLDER)%.o $(OBJ_FOLDER)%.cc: $(SRC_FOLDER)%.c
 	$(COMP_COMMAND)
 	@printf '{\n\t"directory" : "$(shell pwd)",\n\t"command" : "$(COMP_COMMAND)",\n\t"file" : "$<"\n}' > $(OBJ_FOLDER)$*.cc
 
@@ -69,15 +58,11 @@ compile_commands.json : $(COMMANDS) Makefile
 	$(CONCAT) $(COMMANDS) >> compile_commands.json
 	@echo "]" >> compile_commands.json
 
-clean: # $(SUBMODULES)
+clean:
 	rm -f $(OBJS) $(DEPENDS) $(COMMANDS)
-	# for lib in $(shell dirname $(LIBS)); do \
-	# 	make -C $$lib clean; \
-	# done
 
-fclean: clean # $(SUBMODULES)
+fclean: clean
 	rm -f $(NAME) compile_commands.json
-	# make -C libft fclean
 
 re: fclean all
 
