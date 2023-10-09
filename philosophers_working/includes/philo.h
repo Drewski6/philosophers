@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 22:49:38 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:02:11 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef enum e_ret
 {
 	SUCCESS,
 	FAILURE,
-}			t_ret;
+}	t_ret;
 
 typedef struct s_philo
 {
@@ -93,7 +93,7 @@ bool	ft_isdigit(int c);
 void	ft_monitor(t_info *info);
 
 //	philo.c
-//	int	main(int argc, char **argv);
+int		main(int argc, char **argv);
 
 //	philo_actions.c
 void	ft_philo_eat(t_philo *philo);
