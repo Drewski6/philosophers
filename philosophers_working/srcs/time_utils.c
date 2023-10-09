@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 17:38:17 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/07 15:30:42 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/08 13:09:44 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,9 @@ t_ms	get_time(void)
 	time_ms += time.tv_sec * 1000;
 	time_ms += time.tv_usec / 1000;
 	return (time_ms);
+}
+
+void	msleep(int time_in_ms)
+{
+	usleep(time_in_ms * 1000);
 }
