@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 11:51:15 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 12:00:18 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 typedef long int		t_ms;
 
 typedef struct s_info	t_info;
-
-// each t_philo contains a m_fork meaning there are as many forks as philos.
-// however, not all philos will reach for their own fork first.
 
 typedef struct s_philo
 {
