@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 23:02:11 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:25:47 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,12 @@ void	*ft_pthread_entry_point(void *arg);
 
 //	threads.c
 //	static bool	ft_create_philos(t_info *info);
+//	static bool	ft_init_mutexes(t_info *info);
+//	static void	ft_destroy_mutexes(t_info *info);
 void	ft_free_info(t_info *info);
 bool	ft_philo_init(int argc, char **argv, t_info *info);
+
+//	threads_2.c
 bool	ft_recall_philos(t_info *info);
 
 //	time_utils.c
