@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 23:25:47 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:30:47 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef enum e_ret
 typedef struct s_philo
 {
 	int					id;
+	int					l_fork;
+	int					r_fork;
 	pthread_t			thread_id;
 	t_ms				last_ate;
 	pthread_mutex_t		m_fork;
