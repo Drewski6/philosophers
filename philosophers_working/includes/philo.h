@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 22:23:35 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:32:12 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,12 @@ typedef struct s_info
 **	FUNCTION DEFINITIONS
 */
 
-//	philo.c
-
-//	time_utils.c
-t_ms	ft_get_time(void);
-void	ft_msleep(int time_in_ms);
-
 //	arg_parse.c
 bool	ft_arg_count(int argc);
 bool	ft_arg_parse(int argc, char **argv, t_info *info);
+
+//	debug_funcs.c		To remove at the end.
+void	ft_print_info(t_info *info);
 
 //	int_utils.c
 void	ft_bzero(void *str, size_t len);
@@ -92,15 +89,11 @@ bool	ft_atoi_backcheck(char *s_num, int num);
 int		ft_atoi(const char *nptr);
 bool	ft_isdigit(int c);
 
-//	threads.c
-bool	ft_philo_init(int argc, char **argv, t_info *info);
-bool	ft_create_philos(t_info *info);
-void	ft_free_info(t_info *info);
-int		ft_recall_philos(t_info *info);
-int		ft_create_one_philo(t_info *info);
-
 //	monitor.c
 void	ft_monitor(t_info *info);
+
+//	philo.c
+//	int	main(int argc, char **argv);
 
 //	philo_actions.c
 void	ft_philo_eat(t_philo *philo);
@@ -108,7 +101,14 @@ void	ft_philo_sleep(t_philo *philo);
 void	ft_philo_wait(t_philo *philo);
 void	*ft_pthread_entry_point(void *arg);
 
-//	debug_funcs.c		To remove at the end.
-void	ft_print_info(t_info *info);
+//	threads.c
+bool	ft_philo_init(int argc, char **argv, t_info *info);
+bool	ft_create_philos(t_info *info);
+void	ft_free_info(t_info *info);
+int		ft_recall_philos(t_info *info);
+
+//	time_utils.c
+t_ms	ft_get_time(void);
+void	ft_msleep(int time_in_ms);
 
 #endif

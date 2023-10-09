@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 22:26:59 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:29:35 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,24 @@ bool	ft_philo_init(int argc, char **argv, t_info *info)
 	info->start_time = ft_get_time();
 	if (ft_create_philos(info))
 		return (1);
+	return (0);
+}
+
+int	ft_recall_philos(t_info *info)
+{
+	int			i;
+	int			ret;
+	pthread_t	*current;
+
+	i = 0;
+	ret = 0;
+	while (i < info->num_philo)
+	{
+		current = &(info->philos[i].thread_id);
+		ret = pthread_join(*current, NULL);
+		if (ret == 3)
+			return (printf("thread with ID %ld DNE\n", *current), 1);
+		i++;
+	}
 	return (0);
 }
