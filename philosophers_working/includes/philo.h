@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 12:00:18 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:42:08 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ typedef struct s_philo
 	t_info				*info;
 }						t_philo;
 
+/*
+ *	num_philo		Total number of philosophers.
+ *	time_to_die		Time a philosopher can survive without eating.
+ *	time_to_eat		How long it takes for a philosopher to eat.
+ *	time_to_sleep	how long it takes for a philosopher to sleep.
+ *	num_tt_eat		(Optional): Minimum number of times each philosophers
+ *						should eat before simulation should stop.
+ */
+
 typedef struct s_info
 {
 	int					num_philo;
@@ -41,6 +50,7 @@ typedef struct s_info
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					num_tt_eat;
+
 	pthread_mutex_t		m_printf;
 	t_philo				*philos;
 	t_ms				start_time;
