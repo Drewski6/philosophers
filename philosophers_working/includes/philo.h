@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/08 13:15:44 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 10:10:07 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,23 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
-# include <stdbool.h>
+# include <stdint.h>
+
+typedef int8_t bool;
 
 typedef long int t_ms;
 
 typedef struct s_info t_info;
 
+// each t_philo contains a m_fork meaning there are as many forks as philos.
+// however, not all philos will reach for their own fork first.
+
 typedef struct s_philo
 {
 	int				id;
 	pthread_t		thread_id;
-	pthread_mutex_t	m_last_ate;
 	t_ms			last_ate;
+	pthread_mutex_t	m_fork;
 	t_info			*info;
 }			t_philo;
 
@@ -43,6 +48,7 @@ typedef struct s_info
 	pthread_mutex_t	m_printf;
 	t_philo	*philos;
 	t_ms			start_time;
+	bool			someone_died;
 }			t_info;
 
 //	philo.c
