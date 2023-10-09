@@ -6,13 +6,13 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:12:55 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/02 15:17:46 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:22:52 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	arg_count(int argc)
+bool	ft_arg_count(int argc)
 {
 	if (argc < 5 || argc > 6)
 	{
@@ -51,7 +51,7 @@ static bool	verify_arg(char *arg, int *arg_int_value)
 	return (0);
 }
 
-bool	arg_parse(int argc, char **argv, t_info *info)
+bool	ft_arg_parse(int argc, char **argv, t_info *info)
 {
 	int		i;
 

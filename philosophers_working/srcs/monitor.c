@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 18:51:16 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:25:54 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_monitor(t_info *info)
 		while (i < info->num_philo)
 		{
 			pthread_mutex_lock(&info->philos[i].m_fork);
-			if (get_time() - info->philos[i].last_ate >= info->time_to_die)
+			if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die)
 				return ;	// maybe also print that someone died.
 			pthread_mutex_unlock(&info->philos[i].m_fork);
 			i++;

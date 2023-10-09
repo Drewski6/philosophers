@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:35:38 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 18:08:07 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:26:24 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	ft_atoi_backcheck(char *s_num, int num)
  *  Returns integer representation of input string.
  */
 
-static int	int_build(char *str)
+static int	ft_int_build(char *str)
 {
 	int	ret_int;
 
@@ -105,7 +105,7 @@ int	ft_atoi(const char *nptr)
 	while (*nptr)
 	{
 		if (*nptr >= '0' && *nptr <= '9')
-			return (int_build((char *)nptr) * mult);
+			return (ft_int_build((char *)nptr) * mult);
 		else
 			return (0);
 	}

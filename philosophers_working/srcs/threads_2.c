@@ -6,13 +6,13 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 15:40:56 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/08 12:37:38 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:25:17 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	recall_philos(t_info *info)
+int	ft_recall_philos(t_info *info)
 {
 	int			i;
 	int			ret;
