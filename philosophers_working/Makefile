@@ -6,18 +6,18 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 10:49:04 by dpentlan          #+#    #+#              #
-#    Updated: 2023/10/09 23:27:45 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/10/10 17:19:46 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	cc
 
 SRC 			=	arg_parse.c \
-					debug_funcs.c \
 					int_utils.c \
 					monitor.c \
 					philo.c \
 					philo_actions.c \
+					philo_actions_2.c \
 					threads.c \
 					threads_2.c \
 					time_utils.c \

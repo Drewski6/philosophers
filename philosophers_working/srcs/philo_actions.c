@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 17:05:31 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:18:08 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_philo_wait(t_philo *philo)
 	printf("%05ld %d is thinking\n",
 		ft_get_time() - philo->info->start_time, philo->id);
 	pthread_mutex_unlock(&philo->info->m_printf);
+	usleep(10);
 	return ;
 }
 
