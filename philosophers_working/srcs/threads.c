@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 15:51:38 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:43:38 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,12 @@ static bool	ft_init_mutexes(t_info *info)
 {
 	int	i;
 
-	i = 0;
 	if (pthread_mutex_init(&info->m_printf, NULL))
 		return (1);
+	i = 0;
+	while (i < info->num_philo)
+		pthread_mutex_init(&info->philos[i++].m_data, NULL);
+	i = 0;
 	while (i < info->num_philo)
 		pthread_mutex_init(&info->m_forks[i++], NULL);
 	return (0);
@@ -73,8 +76,11 @@ static void	ft_destroy_mutexes(t_info *info)
 {
 	int	i;
 
-	i = 0;
 	pthread_mutex_destroy(&info->m_printf);
+	i = 0;
+	while (i < info->num_philo)
+		pthread_mutex_destroy(&info->philos[i++].m_data);
+	i = 0;
 	while (i < info->num_philo)
 		pthread_mutex_destroy(&info->m_forks[i++]);
 }
@@ -129,8 +135,7 @@ bool	ft_philo_init(int argc, char **argv, t_info *info)
 	if (ft_init_mutexes(info))
 		return (1);
 	info->start_time = ft_get_time();
-	if (ft_assign_forks(info))
-		return (1);
+	ft_assign_forks(info);
 	if (ft_create_philos(info))
 		return (1);
 	return (0);

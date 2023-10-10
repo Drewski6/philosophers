@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 15:59:02 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:53:12 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_philo
 	pthread_t			thread_id;
 	t_ms				last_ate;
 	t_info				*info;
+	pthread_mutex_t		m_data;
 	pthread_mutex_t		*l_fork;
 	pthread_mutex_t		*r_fork;
 }						t_philo;
@@ -106,6 +107,7 @@ int		main(int argc, char **argv);
 void	ft_philo_eat(t_philo *philo);
 void	ft_philo_sleep(t_philo *philo);
 void	ft_philo_wait(t_philo *philo);
+//	static bool	ft_check_if_philo_dead(t_philo *philo);
 void	*ft_pthread_entry_point(void *arg);
 
 //	threads.c
@@ -117,7 +119,7 @@ bool	ft_philo_init(int argc, char **argv, t_info *info);
 
 //	threads_2.c
 bool	ft_recall_philos(t_info *info);
-bool	ft_assign_forks(t_info *info);
+void	ft_assign_forks(t_info *info);
 
 //	time_utils.c
 t_ms	ft_get_time(void);

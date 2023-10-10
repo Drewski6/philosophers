@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:24:20 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 15:56:42 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:13:57 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ bool	ft_recall_philos(t_info *info)
 	while (i < info->num_philo)
 	{
 		current = &(info->philos[i].thread_id);
-		//pthread_mutex_lock(info->philos[i].);
 		info->philos[i].dead = 1;
 		ret = pthread_join(*current, NULL);
 		if (ret == 3)
@@ -44,14 +43,15 @@ bool	ft_recall_philos(t_info *info)
 
 /*
 	NAME
-		Function Name Here
+		ft_assign_forks
 	DESCRIPTION
-		Short description Here
+		Loops over the philos and assigns them an already initialized m_forks
+		mutex from info->m_forks.
 	RETURN
-		Return values Here
+		Void functions returns nothing.
 */
 
-bool	ft_assign_forks(t_info *info)
+void	ft_assign_forks(t_info *info)
 {
 	int		i;
 
@@ -65,5 +65,4 @@ bool	ft_assign_forks(t_info *info)
 			info->philos[i].l_fork = &info->m_forks[i - 1];
 		i++;
 	}
-	return (0);
 }
