@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 23:30:47 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:59:02 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,19 @@ typedef enum e_ret
 	FAILURE,
 }	t_ret;
 
+/*
+** l_fork and r_fork are addresses to m_forks in t_info
+*/
+
 typedef struct s_philo
 {
 	int					id;
-	int					l_fork;
-	int					r_fork;
+	int					dead;
 	pthread_t			thread_id;
 	t_ms				last_ate;
-	pthread_mutex_t		m_fork;
 	t_info				*info;
+	pthread_mutex_t		*l_fork;
+	pthread_mutex_t		*r_fork;
 }						t_philo;
 
 /*
@@ -69,6 +73,7 @@ typedef struct s_info
 	int					num_tt_eat;
 
 	pthread_mutex_t		m_printf;
+	pthread_mutex_t		*m_forks;
 	t_philo				*philos;
 	t_ms				start_time;
 	bool				someone_died;
@@ -112,6 +117,7 @@ bool	ft_philo_init(int argc, char **argv, t_info *info);
 
 //	threads_2.c
 bool	ft_recall_philos(t_info *info);
+bool	ft_assign_forks(t_info *info);
 
 //	time_utils.c
 t_ms	ft_get_time(void);
