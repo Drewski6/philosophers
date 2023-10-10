@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 16:52:21 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:05:31 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 void	ft_philo_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->m_printf);
-	printf("philo #%d is eating.\n", philo->id);
+	printf("%05ld %d is eating\n",
+		ft_get_time() - philo->info->start_time, philo->id);
 	pthread_mutex_unlock(&philo->info->m_printf);
 	ft_msleep(philo->info->time_to_eat);
 	return ;
@@ -25,7 +26,8 @@ void	ft_philo_eat(t_philo *philo)
 void	ft_philo_sleep(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->m_printf);
-	printf("philo #%d is sleeping.\n", philo->id);
+	printf("%05ld %d is sleeping\n",
+		ft_get_time() - philo->info->start_time, philo->id);
 	pthread_mutex_unlock(&philo->info->m_printf);
 	ft_msleep(philo->info->time_to_sleep);
 	return ;
@@ -34,7 +36,8 @@ void	ft_philo_sleep(t_philo *philo)
 void	ft_philo_wait(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->m_printf);
-	printf("philo #%d is waiting.\n", philo->id);
+	printf("%05ld %d is thinking\n",
+		ft_get_time() - philo->info->start_time, philo->id);
 	pthread_mutex_unlock(&philo->info->m_printf);
 	return ;
 }
