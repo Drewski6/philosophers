@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 17:22:38 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:51:10 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		ft_atoi(const char *nptr);
 bool	ft_isdigit(int c);
 
 //	monitor.c
-void	ft_monitor(t_info *info);
+bool	ft_monitor(t_info *info);
 
 //	philo.c
 int		main(int argc, char **argv);

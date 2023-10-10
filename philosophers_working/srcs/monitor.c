@@ -6,12 +6,21 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 14:50:04 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:51:22 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
+
+void	ft_philo_died(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->info->m_printf);
+	printf("%05ld %d has died\n",
+		ft_get_time() - philo->info->start_time, philo->id);
+	pthread_mutex_unlock(&philo->info->m_printf);
+	return ;
+}
 
 /*
 **	NAME
@@ -22,21 +31,23 @@
 		Void only returns in case where num_tt_eat is defined by user.
 */
 
-void	ft_monitor(t_info *info)
+bool	ft_monitor(t_info *info)
 {
-	//int		i;
+	int		i;
 
 	(void) info;
-	ft_msleep(1000);
-	// while (1)
-	// {
-	// 	i = 0;
-	// 	while (i < info->num_philo)
-	// 	{
-	// 		if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die)
-	// 			return ;	// maybe also print that someone died.
-	// 		i++;
-	// 	}
-	// }
-	return ;
+	while (1)
+	{
+		i = 0;
+		while (i < info->num_philo)
+		{
+			pthread_mutex_lock(&info->philos[i].m_data);
+			if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die)
+				return (ft_philo_died(&info->philos[i]),
+					pthread_mutex_unlock(&info->philos[i].m_data), 1);
+			pthread_mutex_unlock(&info->philos[i].m_data);
+			i++;
+		}
+	}
+	return (0);
 }
