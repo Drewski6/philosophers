@@ -6,13 +6,13 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:12:55 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/02 15:17:46 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:58:17 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	arg_count(int argc)
+bool	ft_arg_count(int argc)
 {
 	if (argc < 5 || argc > 6)
 	{
@@ -22,7 +22,7 @@ bool	arg_count(int argc)
 	return (0);
 }
 
-static bool	verify_all_pos(char *arg)
+static bool	ft_verify_all_pos(char *arg)
 {
 	int	i;
 
@@ -36,11 +36,11 @@ static bool	verify_all_pos(char *arg)
 	return (0);
 }
 
-static bool	verify_arg(char *arg, int *arg_int_value)
+static bool	ft_verify_arg(char *arg, int *arg_int_value)
 {
 	int	ret_int;
 
-	if (verify_all_pos(arg))
+	if (ft_verify_all_pos(arg))
 		return (1);
 	ret_int = ft_atoi(arg);
 	if (ft_atoi_backcheck(arg, ret_int))
@@ -51,14 +51,14 @@ static bool	verify_arg(char *arg, int *arg_int_value)
 	return (0);
 }
 
-bool	arg_parse(int argc, char **argv, t_info *info)
+bool	ft_arg_parse(int argc, char **argv, t_info *info)
 {
 	int		i;
 
 	i = 1;
 	while (i < argc)
 	{
-		if (verify_arg(argv[i], &((int *)info)[i - 1]))
+		if (ft_verify_arg(argv[i], &((int *)info)[i - 1]))
 		{
 			printf("Error: Invalid arguments.\n");
 			return (1);
