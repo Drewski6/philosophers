@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 16:53:12 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:51:10 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		ft_atoi(const char *nptr);
 bool	ft_isdigit(int c);
 
 //	monitor.c
-void	ft_monitor(t_info *info);
+bool	ft_monitor(t_info *info);
 
 //	philo.c
 int		main(int argc, char **argv);
@@ -109,6 +109,9 @@ void	ft_philo_sleep(t_philo *philo);
 void	ft_philo_wait(t_philo *philo);
 //	static bool	ft_check_if_philo_dead(t_philo *philo);
 void	*ft_pthread_entry_point(void *arg);
+
+//	philo_actions_2.c
+void	ft_grab_forks(t_philo *philo);
 
 //	threads.c
 //	static bool	ft_create_philos(t_info *info);
