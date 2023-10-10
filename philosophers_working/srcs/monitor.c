@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 17:51:22 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:00:34 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	ft_philo_died(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->m_printf);
-	printf("%05ld %d has died\n",
+	printf("%05ld %d died\n",
 		ft_get_time() - philo->info->start_time, philo->id);
 	pthread_mutex_unlock(&philo->info->m_printf);
 	return ;
