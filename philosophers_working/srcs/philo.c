@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:58:03 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 22:25:32 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:39:26 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	ft_monitor(&info);
 	ft_free_info(&info);
-	return (0);
+	return (SUCCESS);
 }

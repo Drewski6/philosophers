@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 16:43:38 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:42:29 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,15 +123,8 @@ bool	ft_philo_init(int argc, char **argv, t_info *info)
 		return (1);
 	if (ft_arg_parse(argc, argv, info))
 		return (1);
-	info->philos = (t_philo *)malloc(info->num_philo * sizeof(t_philo));
-	if (!info->philos)
-		return (printf("Error: malloc\n"), 1);
-	ft_bzero(info->philos, sizeof(t_philo) * info->num_philo);
-	info->m_forks = (pthread_mutex_t *)malloc(
-			info->num_philo * sizeof(pthread_mutex_t));
-	if (!info->m_forks)
-		return (printf("Error: malloc\n"), 1);
-	ft_bzero(info->m_forks, sizeof(pthread_mutex_t) * info->num_philo);
+	if (ft_alloc_philos_and_forks(info))
+		return (1);
 	if (ft_init_mutexes(info))
 		return (1);
 	info->start_time = ft_get_time();

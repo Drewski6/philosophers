@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:24:20 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 16:13:57 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:42:08 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,18 @@ void	ft_assign_forks(t_info *info)
 			info->philos[i].l_fork = &info->m_forks[i - 1];
 		i++;
 	}
+}
+
+bool	ft_alloc_philos_and_forks(t_info *info)
+{
+	info->philos = (t_philo *)malloc(info->num_philo * sizeof(t_philo));
+	if (!info->philos)
+		return (printf("Error: malloc\n"), 1);
+	ft_bzero(info->philos, sizeof(t_philo) * info->num_philo);
+	info->m_forks = (pthread_mutex_t *)malloc(
+			info->num_philo * sizeof(pthread_mutex_t));
+	if (!info->m_forks)
+		return (printf("Error: malloc\n"), 1);
+	ft_bzero(info->m_forks, sizeof(pthread_mutex_t) * info->num_philo);
+	return (0);
 }
