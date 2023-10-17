@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 18:00:34 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:02:56 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 void	ft_philo_died(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->info->m_printf);
-	printf("%05ld %d died\n",
+	ft_m_printf(philo->info, "%05ld %d died\n",
 		ft_get_time() - philo->info->start_time, philo->id);
-	pthread_mutex_unlock(&philo->info->m_printf);
+	//printf("someone_died %d\n", philo->info->someone_died);
+	pthread_mutex_lock(&philo->info->m_info_data);
+	philo->info->someone_died = 1;
+	pthread_mutex_unlock(&philo->info->m_info_data);
 	return ;
 }
 
@@ -35,7 +37,8 @@ bool	ft_monitor(t_info *info)
 {
 	int		i;
 
-	(void) info;
+	while (!ft_everyone_ready(info))
+		usleep(5);
 	while (1)
 	{
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/17 14:10:26 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:55:23 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef enum e_ret
 typedef struct s_philo
 {
 	int					id;
-	int					dead;
+	bool				ready;
 	pthread_t			thread_id;
 	t_ms				last_ate;
 	t_info				*info;
@@ -74,10 +74,12 @@ typedef struct s_info
 	int					num_tt_eat;
 
 	pthread_mutex_t		m_printf;
+	pthread_mutex_t		m_info_data;
 	pthread_mutex_t		*m_forks;
 	t_philo				*philos;
 	t_ms				start_time;
 	bool				someone_died;
+	bool				everyone_ready;
 }						t_info;
 
 /*
@@ -125,6 +127,8 @@ bool	ft_philo_init(int argc, char **argv, t_info *info);
 bool	ft_recall_philos(t_info *info);
 void	ft_assign_forks(t_info *info);
 bool	ft_alloc_philos_and_forks(t_info *info);
+bool	ft_everyone_ready(t_info *info);
+void	ft_set_philo_ready(t_philo *philo, bool status);
 
 //	time_utils.c
 t_ms	ft_get_time(void);

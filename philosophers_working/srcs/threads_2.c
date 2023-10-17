@@ -6,11 +6,12 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:24:20 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/12 16:42:08 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:01:47 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
 /*
 **	NAME
@@ -32,7 +33,9 @@ bool	ft_recall_philos(t_info *info)
 	while (i < info->num_philo)
 	{
 		current = &(info->philos[i].thread_id);
-		info->philos[i].dead = 1;
+		pthread_mutex_lock(&info->m_info_data);
+		info->someone_died = 1;
+		pthread_mutex_unlock(&info->m_info_data);
 		ret = pthread_join(*current, NULL);
 		if (ret == 3)
 			return (printf("thread with ID %ld DNE\n", *current), 1);
@@ -79,4 +82,44 @@ bool	ft_alloc_philos_and_forks(t_info *info)
 		return (printf("Error: malloc\n"), 1);
 	ft_bzero(info->m_forks, sizeof(pthread_mutex_t) * info->num_philo);
 	return (0);
+}
+
+/*
+	NAME
+		ft_everyone_ready
+	DESCRIPTION
+		 Checks if all the philos are in ready status by looping over them.
+	RETURN
+		Returns 1 for true (all philos are ready) or 
+		0 (at least 1 philo is not ready)for false.
+*/
+
+bool	ft_everyone_ready(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_lock(&info->m_info_data);
+	if (info->everyone_ready == 1)
+		return (pthread_mutex_unlock(&info->m_info_data), 1);
+	pthread_mutex_unlock(&info->m_info_data);
+	while (i < info->num_philo)
+	{
+		pthread_mutex_lock(&info->philos[i].m_data);
+		if (info->philos[i].ready != 1)
+			return (pthread_mutex_unlock(&info->philos[i].m_data), 0);
+		pthread_mutex_unlock(&info->philos[i].m_data);
+		i++;
+	}
+	pthread_mutex_lock(&info->m_info_data);
+	info->everyone_ready = 1;
+	pthread_mutex_unlock(&info->m_info_data);
+	return (1);
+}
+
+void	ft_set_philo_ready(t_philo *philo, bool status)
+{
+	pthread_mutex_lock(&philo->m_data);
+	philo->ready = status;
+	pthread_mutex_unlock(&philo->m_data);
 }

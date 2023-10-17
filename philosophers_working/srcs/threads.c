@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/12 16:42:29 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:28:44 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ static bool	ft_init_mutexes(t_info *info)
 {
 	int	i;
 
+	if (pthread_mutex_init(&info->m_info_data, NULL))
+		return (1);
+	i = 0;
 	if (pthread_mutex_init(&info->m_printf, NULL))
 		return (1);
 	i = 0;
@@ -76,6 +79,7 @@ static void	ft_destroy_mutexes(t_info *info)
 {
 	int	i;
 
+	pthread_mutex_destroy(&info->m_info_data);
 	pthread_mutex_destroy(&info->m_printf);
 	i = 0;
 	while (i < info->num_philo)
