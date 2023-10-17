@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/17 16:17:05 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:47:15 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,28 @@ static bool	ft_check_if_philo_dead(t_philo *philo)
 		return (pthread_mutex_unlock(&philo->info->m_info_data), 0);
 }
 
+/*
+	NAME
+		ft_pthread_entry_point
+	DESCRIPTION
+		Entry point for newly created threads.
+	RETURN
+		Only returns null pointer on completion.
+
+// removed
+	ft_set_philo_ready(philo, 1);
+	while (!ft_everyone_ready(philo->info))
+		usleep(5);
+	while (1)
+
+*/
+
 void	*ft_pthread_entry_point(void *arg)
 {
 	t_philo	*philo;
 
 	philo = arg;
 	ft_set_philo_ready(philo, 1);
-	// while (!ft_everyone_ready(philo->info))
-	// 	usleep(5);
 	while (1)
 	{
 		if (philo->id % 2)
