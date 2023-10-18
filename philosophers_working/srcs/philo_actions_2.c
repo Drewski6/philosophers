@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:19:21 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/18 11:53:48 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:09:54 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	ft_grab_forks_even(t_philo *philo)
 		ft_get_time() - philo->info->start_time, philo->id);
 	ft_m_printf(philo->info, "%05ld %d is eating\n",
 		ft_get_time() - philo->info->start_time, philo->id);
-	//ft_save_last_eat(philo);
 	ft_msleep(philo->info->time_to_eat);
 	ft_save_last_eat(philo);
 	pthread_mutex_unlock(philo->r_fork);
@@ -46,7 +45,6 @@ static void	ft_grab_forks_odd(t_philo *philo)
 		ft_get_time() - philo->info->start_time, philo->id);
 	ft_m_printf(philo->info, "%05ld %d is eating\n",
 		ft_get_time() - philo->info->start_time, philo->id);
-	//ft_save_last_eat(philo);
 	ft_msleep(philo->info->time_to_eat);
 	ft_save_last_eat(philo);
 	pthread_mutex_unlock(philo->l_fork);
