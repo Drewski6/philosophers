@@ -6,14 +6,14 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/18 11:21:50 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:22:18 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
 
-void	ft_philo_died(t_philo *philo)
+static void	ft_philo_died(t_philo *philo)
 {
 	ft_m_printf(philo->info, "%05ld %d died\n",
 		ft_get_time() - philo->info->start_time, philo->id);
