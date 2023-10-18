@@ -1,7 +1,7 @@
 philo
-objs/*.o
-objs/*.d
-objs/*.cc
+objs/*/*.o
+objs/*/*.d
+objs/*/*.cc
 .cache/
 .cache/*
 gdb.txt
