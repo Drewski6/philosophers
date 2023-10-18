@@ -6,19 +6,21 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/10 18:00:34 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:22:18 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
 
-void	ft_philo_died(t_philo *philo)
+static void	ft_philo_died(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->info->m_printf);
-	printf("%05ld %d died\n",
+	ft_m_printf(philo->info, "%05ld %d died\n",
 		ft_get_time() - philo->info->start_time, philo->id);
-	pthread_mutex_unlock(&philo->info->m_printf);
+	printf("last_ate time was %ld\n", philo->last_ate);
+	pthread_mutex_lock(&philo->info->m_info_data);
+	philo->info->someone_died = 1;
+	pthread_mutex_unlock(&philo->info->m_info_data);
 	return ;
 }
 
@@ -35,7 +37,12 @@ bool	ft_monitor(t_info *info)
 {
 	int		i;
 
-	(void) info;
+	pthread_mutex_lock(&info->m_info_data);
+	while (ft_get_time() < info->start_time)
+		ft_msleep(1);
+	pthread_mutex_unlock(&info->m_info_data);
+	pthread_mutex_unlock(&info->m_ready);
+	ft_msleep(5);
 	while (1)
 	{
 		i = 0;
