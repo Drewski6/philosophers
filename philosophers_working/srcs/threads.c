@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/17 15:28:44 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/18 11:59:22 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static bool	ft_create_philos(t_info *info)
 	int		i;
 
 	i = 0;
+	pthread_mutex_lock(&info->m_ready);
 	while (i < info->num_philo)
 	{
 		info->philos[i].id = i;
@@ -52,9 +53,10 @@ static bool	ft_init_mutexes(t_info *info)
 {
 	int	i;
 
+	if (pthread_mutex_init(&info->m_ready, NULL))
+		return (1);
 	if (pthread_mutex_init(&info->m_info_data, NULL))
 		return (1);
-	i = 0;
 	if (pthread_mutex_init(&info->m_printf, NULL))
 		return (1);
 	i = 0;
@@ -79,6 +81,7 @@ static void	ft_destroy_mutexes(t_info *info)
 {
 	int	i;
 
+	pthread_mutex_destroy(&info->m_ready);
 	pthread_mutex_destroy(&info->m_info_data);
 	pthread_mutex_destroy(&info->m_printf);
 	i = 0;
@@ -115,8 +118,8 @@ void	ft_free_info(t_info *info)
 **	NAME
 		ft_philo_init
 **	DESCRIPTION
-		Calls basic setup functions: Arg parsing, initializing mutexes, setting
-		start time, and calls function to create all philos.
+		Calls basic setup functions: Arg parsing, initializing mutexes, 
+			and calls function to create all philos.
 **	RETURN
 		Returns 0 on Success or 1 on Failure.
 */
@@ -131,7 +134,7 @@ bool	ft_philo_init(int argc, char **argv, t_info *info)
 		return (1);
 	if (ft_init_mutexes(info))
 		return (1);
-	info->start_time = ft_get_time();
+	info->start_time = ft_get_time() + START_DELAY;
 	ft_assign_forks(info);
 	if (ft_create_philos(info))
 		return (1);
