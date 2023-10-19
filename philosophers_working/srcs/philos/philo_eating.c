@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_actions_2.c                                  :+:      :+:    :+:   */
+/*   philo_eating.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:19:21 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/18 12:09:54 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:45:56 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	ft_save_last_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->m_data);
 	philo->last_ate = ft_get_time();
+	philo->p_num_meals += 1;
 	pthread_mutex_unlock(&philo->m_data);
 }
 
@@ -51,7 +52,7 @@ static void	ft_grab_forks_odd(t_philo *philo)
 	pthread_mutex_unlock(philo->r_fork);
 }
 
-void	ft_grab_forks(t_philo *philo)
+static void	ft_grab_forks(t_philo *philo)
 {
 	if (philo->id % 2)
 		ft_grab_forks_odd(philo);
@@ -60,14 +61,8 @@ void	ft_grab_forks(t_philo *philo)
 	return ;
 }
 
-void	ft_m_printf(t_info *info, const char *s, t_ms time_stamp, int id)
+void	ft_philo_eat(t_philo *philo)
 {
-	pthread_mutex_lock(&info->m_info_data);
-	if (!info->someone_died)
-	{
-		pthread_mutex_lock(&info->m_printf);
-		printf(s, time_stamp, id);
-		pthread_mutex_unlock(&info->m_printf);
-	}
-	pthread_mutex_unlock(&info->m_info_data);
+	ft_grab_forks(philo);
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/18 12:28:52 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:45:23 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef enum e_ret
 typedef struct s_philo
 {
 	int					id;
+	int					num_tt_eat;
+	int					p_num_meals;
 	pthread_t			thread_id;
 	t_ms				last_ate;
 	t_info				*info;
@@ -140,17 +142,20 @@ bool	ft_isdigit(int c);
 */
 
 //	philo_actions.c
-//	static void	ft_philo_eat(t_philo *philo);
 //	static void	ft_philo_sleep(t_philo *philo);
 //	static void	ft_philo_wait(t_philo *philo);
 //	static bool	ft_check_if_philo_dead(t_philo *philo);
+//	static bool	ft_philo_check_num_meals(t_philo *philo);
 void	*ft_pthread_entry_point(void *arg);
 
-//	philo_actions_2.c
+//	philo_eating.c
 //	static void	ft_save_last_eat(t_philo *philo)
 //	static void	ft_grab_forks_even(t_philo *philo)
 //	static void	ft_grab_forks_odd(t_philo *philo)
-void	ft_grab_forks(t_philo *philo);
+//	static void	ft_grab_forks(t_philo *philo);
+void	ft_philo_eat(t_philo *philo);
+
+//	philo_print.c
 void	ft_m_printf(t_info *info, const char *s, t_ms time_stamp, int id);
 
 #endif
