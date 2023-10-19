@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:58:03 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/18 09:49:33 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:48:42 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@
 int	main(int argc, char **argv)
 {
 	t_info	info;
+	int		ret;
 
+	ret = SUCCESS;
 	ft_bzero((void *)&info, sizeof(t_info));
 	if (ft_philo_init(argc, argv, &info))
 		return (FAILURE);
-	ft_monitor(&info);
+	ret = ft_monitor(&info);
 	ft_free_info(&info);
-	return (SUCCESS);
+	return (ret);
 }

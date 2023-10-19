@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/19 12:38:33 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:51:11 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ bool	ft_monitor(t_info *info)
 				return (ft_philo_died(&info->philos[i]),
 					pthread_mutex_unlock(&info->philos[i].m_data), 1);
 			pthread_mutex_unlock(&info->philos[i].m_data);
-			if (info->philos[i].p_num_meals == info->philos[i].num_tt_eat
+			if (info->philos[i].num_tt_eat
+				&& info->philos[i].p_num_meals == info->philos[i].num_tt_eat
 				&& ft_check_all_philos_have_eaten(info))
 				return (0);
 			i++;

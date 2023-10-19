@@ -6,18 +6,12 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/19 12:27:22 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:43:40 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
-
-static void	ft_philo_eat(t_philo *philo)
-{
-	ft_grab_forks(philo);
-	return ;
-}
 
 static void	ft_philo_sleep(t_philo *philo)
 {
@@ -44,7 +38,7 @@ static bool	ft_check_if_philo_dead(t_philo *philo)
 		return (pthread_mutex_unlock(&philo->info->m_info_data), 0);
 }
 
-bool	ft_philo_check_num_meals(t_philo *philo)
+static bool	ft_philo_check_num_meals(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->m_data);
 	if (philo->p_num_meals == philo->num_tt_eat)
