@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:19:21 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/18 12:09:54 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:19:47 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	ft_save_last_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->m_data);
 	philo->last_ate = ft_get_time();
+	philo->p_num_meals += 1;
 	pthread_mutex_unlock(&philo->m_data);
 }
 
@@ -66,7 +67,7 @@ void	ft_m_printf(t_info *info, const char *s, t_ms time_stamp, int id)
 	if (!info->someone_died)
 	{
 		pthread_mutex_lock(&info->m_printf);
-		printf(s, time_stamp, id);
+		printf(s, time_stamp, id + 1);
 		pthread_mutex_unlock(&info->m_printf);
 	}
 	pthread_mutex_unlock(&info->m_info_data);

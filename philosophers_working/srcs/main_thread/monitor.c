@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/18 12:22:18 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:38:33 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	ft_philo_died(t_philo *philo)
 {
 	ft_m_printf(philo->info, "%05ld %d died\n",
 		ft_get_time() - philo->info->start_time, philo->id);
-	printf("last_ate time was %ld\n", philo->last_ate);
 	pthread_mutex_lock(&philo->info->m_info_data);
 	philo->info->someone_died = 1;
 	pthread_mutex_unlock(&philo->info->m_info_data);
@@ -32,6 +31,21 @@ static void	ft_philo_died(t_philo *philo)
 **	RETURN
 		Void only returns in case where num_tt_eat is defined by user.
 */
+
+static bool	ft_check_all_philos_have_eaten(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_lock(&info->m_info_data);
+	while (i < info->num_philo)
+	{
+		if (info->philos[i].num_tt_eat != info->philos[i].p_num_meals)
+			return (pthread_mutex_unlock(&info->m_info_data), 0);
+		i++;
+	}
+	return (pthread_mutex_unlock(&info->m_info_data), 1);
+}
 
 bool	ft_monitor(t_info *info)
 {
@@ -49,10 +63,14 @@ bool	ft_monitor(t_info *info)
 		while (i < info->num_philo)
 		{
 			pthread_mutex_lock(&info->philos[i].m_data);
-			if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die)
+			if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die
+				&& info->philos[i].p_num_meals != info->philos[i].num_tt_eat)
 				return (ft_philo_died(&info->philos[i]),
 					pthread_mutex_unlock(&info->philos[i].m_data), 1);
 			pthread_mutex_unlock(&info->philos[i].m_data);
+			if (info->philos[i].p_num_meals == info->philos[i].num_tt_eat
+				&& ft_check_all_philos_have_eaten(info))
+				return (0);
 			i++;
 		}
 	}

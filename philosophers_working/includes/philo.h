@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/18 12:28:52 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:25:36 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef enum e_ret
 typedef struct s_philo
 {
 	int					id;
+	int					num_tt_eat;
+	int					p_num_meals;
 	pthread_t			thread_id;
 	t_ms				last_ate;
 	t_info				*info;
