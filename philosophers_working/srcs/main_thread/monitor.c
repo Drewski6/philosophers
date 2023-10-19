@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/19 12:51:11 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:48:40 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,40 @@ static void	ft_philo_died(t_philo *philo)
 	return ;
 }
 
+static bool	ft_check_all_philos_have_eaten(t_philo *philo)
+{
+	int		i;
+	t_info	*info;
+
+	i = 0;
+	info = philo->info;
+	pthread_mutex_lock(&philo->m_data);
+	if (philo->num_tt_eat != philo->p_num_meals)
+		return (pthread_mutex_unlock(&philo->m_data), 0);
+	pthread_mutex_unlock(&philo->m_data);
+	pthread_mutex_lock(&info->m_info_data);
+	while (i < info->num_philo)
+	{
+		pthread_mutex_lock(&info->philos[i].m_data);
+		if (info->philos[i].num_tt_eat != info->philos[i].p_num_meals)
+			return (pthread_mutex_unlock(&info->philos[i].m_data),
+				pthread_mutex_unlock(&info->m_info_data), 0);
+		pthread_mutex_unlock(&info->philos[i].m_data);
+		i++;
+	}
+	return (pthread_mutex_unlock(&info->m_info_data), 1);
+}
+
 /*
 **	NAME
 		ft_monitor
 **	DESCRIPTION
 		Used by the main thread to monitor the status of the philos' alive status
+		NOTE: i++ in last function call to ft_check_all_philos_have_eaten.
+			This is to save 1 line for the norminette lol.
 **	RETURN
 		Void only returns in case where num_tt_eat is defined by user.
 */
-
-static bool	ft_check_all_philos_have_eaten(t_info *info)
-{
-	int	i;
-
-	i = 0;
-	pthread_mutex_lock(&info->m_info_data);
-	while (i < info->num_philo)
-	{
-		if (info->philos[i].num_tt_eat != info->philos[i].p_num_meals)
-			return (pthread_mutex_unlock(&info->m_info_data), 0);
-		i++;
-	}
-	return (pthread_mutex_unlock(&info->m_info_data), 1);
-}
 
 bool	ft_monitor(t_info *info)
 {
@@ -68,11 +79,9 @@ bool	ft_monitor(t_info *info)
 				return (ft_philo_died(&info->philos[i]),
 					pthread_mutex_unlock(&info->philos[i].m_data), 1);
 			pthread_mutex_unlock(&info->philos[i].m_data);
-			if (info->philos[i].num_tt_eat
-				&& info->philos[i].p_num_meals == info->philos[i].num_tt_eat
-				&& ft_check_all_philos_have_eaten(info))
+			if (ft_check_all_philos_have_eaten(&info->philos[i++]))
 				return (0);
-			i++;
+			usleep(1);
 		}
 	}
 	return (0);
