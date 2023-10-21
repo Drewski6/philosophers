@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:19:21 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/19 12:45:56 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/21 12:02:34 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	ft_grab_forks_even(t_philo *philo)
 		ft_get_time() - philo->info->start_time, philo->id);
 	ft_msleep(philo->info->time_to_eat);
 	ft_save_last_eat(philo);
-	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(philo->r_fork);
 }
 
 static void	ft_grab_forks_odd(t_philo *philo)
@@ -48,8 +48,8 @@ static void	ft_grab_forks_odd(t_philo *philo)
 		ft_get_time() - philo->info->start_time, philo->id);
 	ft_msleep(philo->info->time_to_eat);
 	ft_save_last_eat(philo);
-	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 }
 
 static void	ft_grab_forks(t_philo *philo)

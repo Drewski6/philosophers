@@ -6,12 +6,11 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/19 16:02:38 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/21 11:46:03 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 static void	ft_philo_died(t_philo *philo)
 {
@@ -20,7 +19,6 @@ static void	ft_philo_died(t_philo *philo)
 	pthread_mutex_lock(&philo->info->m_info_data);
 	philo->info->someone_died = 1;
 	pthread_mutex_unlock(&philo->info->m_info_data);
-	return ;
 }
 
 static bool	ft_check_all_philos_have_eaten(t_philo *philo)
