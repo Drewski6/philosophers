@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:24:20 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/18 09:53:06 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/21 12:14:13 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ bool	ft_recall_philos(t_info *info)
 
 	i = 0;
 	ret = 0;
+	pthread_mutex_lock(&info->m_info_data);
+	info->someone_died = 1;
+	pthread_mutex_unlock(&info->m_info_data);
 	while (i < info->num_philo)
 	{
 		current = &(info->philos[i].thread_id);
-		pthread_mutex_lock(&info->m_info_data);
-		info->someone_died = 1;
-		pthread_mutex_unlock(&info->m_info_data);
 		ret = pthread_join(*current, NULL);
 		if (ret == 3)
 			return (printf("thread with ID %ld DNE\n", *current), 1);
