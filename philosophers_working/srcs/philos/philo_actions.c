@@ -6,12 +6,11 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/22 23:50:51 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:55:02 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 /*
 **	NAME
