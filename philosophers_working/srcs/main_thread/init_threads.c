@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/22 23:36:55 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/22 23:56:14 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ static bool	ft_create_philos(t_info *info)
 		info->philos[i].id = i;
 		info->philos[i].info = info;
 		info->philos[i].last_ate = info->start_time;
+		info->philos[i].time_to_eat = info->time_to_eat;
+		info->philos[i].time_to_sleep = info->time_to_sleep;
 		if (info->num_tt_eat)
 			info->philos[i].num_tt_eat = info->num_tt_eat;
 		if (pthread_create(&info->philos[i].thread_id, NULL,

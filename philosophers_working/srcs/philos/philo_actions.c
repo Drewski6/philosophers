@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/22 23:14:13 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/22 23:50:51 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_philo_sleep(t_philo *philo)
 {
 	ft_m_printf(philo->info, "%05ld %d is sleeping\n",
 		ft_get_time() - philo->info->start_time, philo->id);
-	ft_msleep(philo->info->time_to_sleep);
+	ft_msleep(philo->time_to_sleep);
 	return ;
 }
 
