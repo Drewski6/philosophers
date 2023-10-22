@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads_2.c                                        :+:      :+:    :+:   */
+/*   destroy_threads.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:24:20 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/21 12:14:13 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/22 23:33:36 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 		Bool function returns 0 on Success and 1 on Failure.
 */
 
-bool	ft_recall_philos(t_info *info)
+static bool	ft_recall_philos(t_info *info)
 {
 	int			i;
 	int			ret;
@@ -45,41 +45,47 @@ bool	ft_recall_philos(t_info *info)
 }
 
 /*
-	NAME
-		ft_assign_forks
-	DESCRIPTION
-		Loops over the philos and assigns them an already initialized m_forks
-		mutex from info->m_forks.
-	RETURN
-		Void functions returns nothing.
+**	NAME
+		ft_destroy_mutexes
+**	DESCRIPTION
+		Destroys mutexes to wrap up.
+**	RETURN
+		Void function does not return a value.
 */
 
-void	ft_assign_forks(t_info *info)
+static void	ft_destroy_mutexes(t_info *info)
 {
-	int		i;
+	int	i;
 
+	pthread_mutex_destroy(&info->m_ready);
+	pthread_mutex_destroy(&info->m_info_data);
+	pthread_mutex_destroy(&info->m_printf);
 	i = 0;
 	while (i < info->num_philo)
-	{
-		info->philos[i].r_fork = &info->m_forks[i];
-		if (i == 0)
-			info->philos[i].l_fork = &info->m_forks[info->num_philo - 1];
-		else
-			info->philos[i].l_fork = &info->m_forks[i - 1];
-		i++;
-	}
+		pthread_mutex_destroy(&info->philos[i++].m_data);
+	i = 0;
+	while (i < info->num_philo)
+		pthread_mutex_destroy(&info->m_forks[i++]);
 }
 
-bool	ft_alloc_philos_and_forks(t_info *info)
+/*
+**	NAME
+		ft_free_info
+**	DESCRIPTION
+		Joins all open threads with ft_recall_philos then frees malloced
+		philo info.
+**	RETURN
+		Void function returns nothing.
+*/
+
+void	ft_free_info(t_info *info)
 {
-	info->philos = (t_philo *)malloc(info->num_philo * sizeof(t_philo));
-	if (!info->philos)
-		return (printf("Error: malloc\n"), 1);
-	ft_bzero(info->philos, sizeof(t_philo) * info->num_philo);
-	info->m_forks = (pthread_mutex_t *)malloc(
-			info->num_philo * sizeof(pthread_mutex_t));
-	if (!info->m_forks)
-		return (printf("Error: malloc\n"), 1);
-	ft_bzero(info->m_forks, sizeof(pthread_mutex_t) * info->num_philo);
-	return (0);
+	ft_recall_philos(info);
+	ft_destroy_mutexes(info);
+	if (info->philos)
+		free(info->philos);
+	info->philos = NULL;
+	if (info->m_forks)
+		free(info->m_forks);
+	info->m_forks = NULL;
 }

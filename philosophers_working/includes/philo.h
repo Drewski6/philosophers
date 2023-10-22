@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/19 15:28:16 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/22 23:40:32 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,24 +97,24 @@ typedef struct s_info
 **		//	main_thread	//
 */
 
+//	destroy_threads.c
+//	static void	ft_destroy_mutexes(t_info *info);
+//	static bool	ft_recall_philos(t_info *info);
+void	ft_free_info(t_info *info);
+
+//	init_threads.c
+//	static bool	ft_alloc_philos_and_forks(t_info *info);
+//	static bool	ft_init_mutexes(t_info *info);
+//	static void	ft_assign_forks(t_info *info);
+//	static bool	ft_create_philos(t_info *info);
+bool	ft_philo_init(int argc, char **argv, t_info *info);
+
 //	monitor.c
 //	static void	ft_philo_died(t_philo *philo)
 bool	ft_monitor(t_info *info);
 
 //	philo.c
 //	int		main(int argc, char **argv);
-
-//	threads.c
-//	static bool	ft_create_philos(t_info *info);
-//	static bool	ft_init_mutexes(t_info *info);
-//	static void	ft_destroy_mutexes(t_info *info);
-void	ft_free_info(t_info *info);
-bool	ft_philo_init(int argc, char **argv, t_info *info);
-
-//	threads_2.c
-bool	ft_recall_philos(t_info *info);
-void	ft_assign_forks(t_info *info);
-bool	ft_alloc_philos_and_forks(t_info *info);
 
 //	time_utils.c
 t_ms	ft_get_time(void);
@@ -125,13 +125,12 @@ void	ft_msleep(int time_in_ms);
 */
 
 //	arg_parse.c
-bool	ft_arg_count(int argc);
 //	static bool	ft_verify_all_pos(char *arg)
 //	static bool	ft_edgecases(int *arg_int_value, int i);
 //	static bool	ft_verify_arg(char *arg, int *arg_int_value)
 bool	ft_arg_parse(int argc, char **argv, t_info *info);
 
-//	int_utils.c
+//	ft_utils.c
 void	ft_bzero(void *str, size_t len);
 bool	ft_atoi_backcheck(char *s_num, int num);
 //	static int	ft_int_build(char *str)

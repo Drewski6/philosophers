@@ -6,11 +6,20 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:45:44 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/19 12:45:59 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/22 23:26:01 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*
+**	NAME
+		ft_m_printf
+**	DESCRIPTION
+		Prints the time stamp, philo id, and message only if someone_died is 0.
+**	RETURN
+		Void function does not return a value.
+*/
 
 void	ft_m_printf(t_info *info, const char *s, t_ms time_stamp, int id)
 {

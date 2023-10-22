@@ -6,11 +6,20 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:35:38 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/09 22:26:24 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/22 23:05:08 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*
+**	NAME
+		ft_bzero
+**	DESCRIPTION
+		Sets len number of bytes starting from address str to 0.
+**	RETURN
+		Void function does not return.
+*/
 
 void	ft_bzero(void *str, size_t len)
 {
