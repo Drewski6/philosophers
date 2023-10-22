@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:24:20 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/22 23:33:36 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:46:42 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,12 @@ static bool	ft_recall_philos(t_info *info)
 	pthread_t	*current;
 
 	i = 0;
-	ret = 0;
-	pthread_mutex_lock(&info->m_info_data);
-	info->someone_died = 1;
-	pthread_mutex_unlock(&info->m_info_data);
 	while (i < info->num_philo)
 	{
 		current = &(info->philos[i].thread_id);
 		ret = pthread_join(*current, NULL);
 		if (ret == 3)
-			return (printf("thread with ID %ld DNE\n", *current), 1);
+			return (1);
 		i++;
 	}
 	return (0);
@@ -80,12 +76,17 @@ static void	ft_destroy_mutexes(t_info *info)
 
 void	ft_free_info(t_info *info)
 {
-	ft_recall_philos(info);
-	ft_destroy_mutexes(info);
 	if (info->philos)
-		free(info->philos);
-	info->philos = NULL;
+		ft_recall_philos(info);
 	if (info->m_forks)
+	{
+		ft_destroy_mutexes(info);
 		free(info->m_forks);
-	info->m_forks = NULL;
+		info->m_forks = NULL;
+	}
+	if (info->philos)
+	{
+		free(info->philos);
+		info->philos = NULL;
+	}
 }

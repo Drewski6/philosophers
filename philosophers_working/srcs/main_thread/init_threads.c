@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/22 23:56:14 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:52:57 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@ static bool	ft_init_mutexes(t_info *info)
 		return (1);
 	i = 0;
 	while (i < info->num_philo)
-		pthread_mutex_init(&info->philos[i++].m_data, NULL);
+		if (pthread_mutex_init(&info->philos[i++].m_data, NULL))
+			return (1);
 	i = 0;
 	while (i < info->num_philo)
-		pthread_mutex_init(&info->m_forks[i++], NULL);
+		if (pthread_mutex_init(&info->m_forks[i++], NULL))
+			return (1);
 	return (0);
 }
 
@@ -129,22 +131,28 @@ static bool	ft_create_philos(t_info *info)
 		Calls basic setup functions: Arg parsing, initializing mutexes, 
 			and calls function to create all philos.
 **	RETURN
-		Returns 0 on Success or 1 on Failure.
+		Returns 0 on Success or 1 on Failure. Also prints error message if any
+		errors are encountered either in this function or a called function.
 */
 
 bool	ft_philo_init(int argc, char **argv, t_info *info)
 {
 	if (argc < 5 || argc > 6)
 		return (printf("Error: Incorrect number of arguments.\n"), 1);
+	info->philos = NULL;
+	info->m_forks = NULL;
 	if (ft_arg_parse(argc, argv, info))
 		return (1);
 	if (ft_alloc_philos_and_forks(info))
-		return (1);
+		return (ft_free_info(info), 1);
 	if (ft_init_mutexes(info))
-		return (1);
+	{
+		printf("Error: pthread_mutex_init: failed to initialize mutex.");
+		return (ft_free_info(info), 1);
+	}
 	info->start_time = ft_get_time() + START_DELAY;
 	ft_assign_forks(info);
 	if (ft_create_philos(info))
-		return (1);
+		return (ft_free_info(info), 1);
 	return (0);
 }

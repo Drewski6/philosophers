@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:12:55 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/22 23:37:01 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:51:48 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,7 @@ bool	ft_arg_parse(int argc, char **argv, t_info *info)
 	{
 		if (ft_verify_arg(argv[i], &((int *)info)[i - 1])
 			|| ft_edgecases(&((int *)info)[i - 1], i))
-		{
-			printf("Error: Invalid arguments.\n");
-			return (1);
-		}
+			return (printf("Error: Invalid arguments.\n"), 1);
 		i++;
 	}
 	return (0);
