@@ -6,18 +6,18 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 10:49:04 by dpentlan          #+#    #+#              #
-#    Updated: 2023/10/19 12:46:12 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/10/22 23:44:43 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	cc
 
 SRC 			=	parsing/arg_parse.c \
-					parsing/int_utils.c \
+					parsing/ft_utils.c \
 					main_thread/monitor.c \
 					main_thread/philo.c \
-					main_thread/threads.c \
-					main_thread/threads_2.c \
+					main_thread/init_threads.c \
+					main_thread/destroy_threads.c \
 					main_thread/time_utils.c \
 					philos/philo_actions.c \
 					philos/philo_eating.c \
@@ -27,7 +27,7 @@ NAME			=	philo
 
 OBJ_FOLDER		=	objs/
 
-CFLAGS			=	-Wall -Wextra -Werror -g
+CFLAGS			=	-Wall -Wextra -Werror -g # -fsanitize=thread
 
 SRC_FOLDER		=	srcs/
 

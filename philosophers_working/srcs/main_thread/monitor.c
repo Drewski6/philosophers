@@ -6,12 +6,21 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/19 16:02:38 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:34:42 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
+
+/*
+**	NAME
+		ft_philo_died
+**	DESCRIPTION
+		This function Runs when ft_monitor detects that a philosopher has lived 
+		passed its time_to_die.
+**	RETURN
+		Void function does not return a value.
+*/
 
 static void	ft_philo_died(t_philo *philo)
 {
@@ -20,8 +29,20 @@ static void	ft_philo_died(t_philo *philo)
 	pthread_mutex_lock(&philo->info->m_info_data);
 	philo->info->someone_died = 1;
 	pthread_mutex_unlock(&philo->info->m_info_data);
-	return ;
 }
+
+/*
+**	NAME
+		ft_check_all_philos_have_eaten
+**	DESCRIPTION
+		Checks that each philosopher has eaten.
+		- First checks if num_tt_eat is set.
+		- Second checks if num_tt_eat == p_num_meals.
+		- Last runs a loop to check if all philos are done.
+**	RETURN
+		Returns bool value indicating 1 (SUCCESS ie. all philos have eaten)
+		or 0 (FAILURE ie. not all philos have eaten or num_tt_eat not set).
+*/
 
 static bool	ft_check_all_philos_have_eaten(t_philo *philo)
 {
@@ -57,7 +78,8 @@ static bool	ft_check_all_philos_have_eaten(t_philo *philo)
 		NOTE: i++ in last function call to ft_check_all_philos_have_eaten.
 			This is to save 1 line for the norminette lol.
 **	RETURN
-		Void only returns in case where num_tt_eat is defined by user.
+		Returns bool 1 indicating a philo has died; or 0 indicating successful
+		finish.
 */
 
 bool	ft_monitor(t_info *info)

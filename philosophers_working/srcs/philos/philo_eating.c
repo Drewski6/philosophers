@@ -6,11 +6,21 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:19:21 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/19 12:45:56 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/22 23:53:53 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*
+**	NAME
+		ft_save_last_eat
+**	DESCRIPTION
+		Gets the current time and saves it in the philos last_ate variable.
+		Also increments the philo_num_meals eaten variable for meal tracking.
+**	RETURN
+		Void function does not return a value.
+*/
 
 static void	ft_save_last_eat(t_philo *philo)
 {
@@ -19,6 +29,20 @@ static void	ft_save_last_eat(t_philo *philo)
 	philo->p_num_meals += 1;
 	pthread_mutex_unlock(&philo->m_data);
 }
+
+/*
+**	NAME
+		ft_grab_forks_even
+**	DESCRIPTION
+		Function for even number philosophers to grab their forks.
+		- First grab r fork by locking r_fork mutex and print message.
+		- Second grab l fork and print message.
+		- msleep for time_to_eat time.
+		- save the last time eaten after msleep.
+		- Release forks in reverse order by unlocking mutex.
+**	RETURN
+		Void function does not return a value.
+*/
 
 static void	ft_grab_forks_even(t_philo *philo)
 {
@@ -30,11 +54,25 @@ static void	ft_grab_forks_even(t_philo *philo)
 		ft_get_time() - philo->info->start_time, philo->id);
 	ft_m_printf(philo->info, "%05ld %d is eating\n",
 		ft_get_time() - philo->info->start_time, philo->id);
-	ft_msleep(philo->info->time_to_eat);
+	ft_msleep(philo->time_to_eat);
 	ft_save_last_eat(philo);
-	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(philo->r_fork);
 }
+
+/*
+**	NAME
+		ft_grab_forks_odd
+**	DESCRIPTION
+		Function for odd number philosophers to grab their forks.
+		- First grab l fork by locking l_fork mutex and print message.
+		- Second grab r fork and print message.
+		- msleep for time_to_eat time.
+		- save the last time eaten after msleep.
+		- Release forks in reverse order by unlocking mutex.
+**	RETURN
+		Void function does not return a value.
+*/
 
 static void	ft_grab_forks_odd(t_philo *philo)
 {
@@ -46,23 +84,27 @@ static void	ft_grab_forks_odd(t_philo *philo)
 		ft_get_time() - philo->info->start_time, philo->id);
 	ft_m_printf(philo->info, "%05ld %d is eating\n",
 		ft_get_time() - philo->info->start_time, philo->id);
-	ft_msleep(philo->info->time_to_eat);
+	ft_msleep(philo->time_to_eat);
 	ft_save_last_eat(philo);
-	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 }
 
-static void	ft_grab_forks(t_philo *philo)
+/*
+**	NAME
+		ft_philo_eat
+**	DESCRIPTION
+		Simply sorts philosophers by if their odd or even and calls the
+		appropriate function.
+**	RETURN
+		Void function does not return a value.
+*/
+
+void	ft_philo_eat(t_philo *philo)
 {
 	if (philo->id % 2)
 		ft_grab_forks_odd(philo);
 	else
 		ft_grab_forks_even(philo);
-	return ;
-}
-
-void	ft_philo_eat(t_philo *philo)
-{
-	ft_grab_forks(philo);
 	return ;
 }
