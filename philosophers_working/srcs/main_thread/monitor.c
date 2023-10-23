@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/23 18:29:14 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:00:16 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 
 static void	ft_philo_died(t_philo *philo)
 {
-	//ft_m_printf(philo->info, "%05ld %d died\n",
-	ft_m_printf(philo->info, "%ld %d died\n",
+	ft_m_printf(philo->info, "%05ld %d died\n",
 		ft_get_time() - philo->info->start_time, philo->id);
 	pthread_mutex_lock(&philo->info->m_info_data);
 	philo->info->someone_died = 1;
