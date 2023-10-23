@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/23 00:34:42 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:29:14 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 
 static void	ft_philo_died(t_philo *philo)
 {
-	ft_m_printf(philo->info, "%05ld %d died\n",
+	//ft_m_printf(philo->info, "%05ld %d died\n",
+	ft_m_printf(philo->info, "%ld %d died\n",
 		ft_get_time() - philo->info->start_time, philo->id);
 	pthread_mutex_lock(&philo->info->m_info_data);
 	philo->info->someone_died = 1;
@@ -101,7 +102,7 @@ bool	ft_monitor(t_info *info)
 			if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die
 				&& info->philos[i].p_num_meals != info->philos[i].num_tt_eat)
 				return (ft_philo_died(&info->philos[i]),
-					pthread_mutex_unlock(&info->philos[i].m_data), 1);
+					pthread_mutex_unlock(&info->philos[i].m_data), 0);
 			pthread_mutex_unlock(&info->philos[i].m_data);
 			if (ft_check_all_philos_have_eaten(&info->philos[i++]))
 				return (0);

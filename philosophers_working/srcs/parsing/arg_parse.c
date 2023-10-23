@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:12:55 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/23 00:51:48 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:52:28 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,7 @@ static bool	ft_edgecases(int *arg_int_value, int i)
 {
 	if (*arg_int_value == 0)
 		return (1);
-	if (i == 1)
-	{
-		if (*arg_int_value == 1)
-			return (1);
-	}
+	(void) i;
 	return (0);
 }
 
