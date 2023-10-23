@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/22 23:55:47 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:17:29 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_info
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					num_tt_eat;
-
+	int					num_philos_waiting;
 	pthread_mutex_t		m_printf;
 	pthread_mutex_t		m_info_data;
 	pthread_mutex_t		m_ready;

@@ -6,3 +6,4 @@ objs/*/*.cc
 .cache/*
 gdb.txt
 compile_commands.json
+thales_tester/
