@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:19:21 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/23 19:45:04 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:47:03 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static void	ft_save_last_eat(t_philo *philo)
 static void	ft_grab_forks_even(t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
-	ft_m_printf(philo->info, "%05ld %d has taken a fork\n",
-		ft_get_time() - philo->info->start_time, philo->id);
+	ft_m_printf(philo, "\e[%dm%05ld \e[%dm%03d \e[%dmhas taken a fork\n",
+		ft_get_time() - philo->info->start_time);
 	if (philo->r_fork == philo->l_fork)
 	{
 		pthread_mutex_lock(&philo->m_data);
@@ -59,10 +59,10 @@ static void	ft_grab_forks_even(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_lock(philo->l_fork);
-	ft_m_printf(philo->info, "%05ld %d has taken a fork\n",
-		ft_get_time() - philo->info->start_time, philo->id);
-	ft_m_printf(philo->info, "%05ld %d is eating\n",
-		ft_get_time() - philo->info->start_time, philo->id);
+	ft_m_printf(philo, "\e[%dm%05ld \e[%dm%03d \e[%dmhas taken a fork\n",
+		ft_get_time() - philo->info->start_time);
+	ft_m_printf(philo, "\e[%dm%05ld \e[%dm%03d \e[%dmis eating\n",
+		ft_get_time() - philo->info->start_time);
 	ft_msleep(philo->time_to_eat);
 	ft_save_last_eat(philo);
 	pthread_mutex_unlock(philo->l_fork);
@@ -87,13 +87,13 @@ static void	ft_grab_forks_even(t_philo *philo)
 static void	ft_grab_forks_odd(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
-	ft_m_printf(philo->info, "%05ld %d has taken a fork\n",
-		ft_get_time() - philo->info->start_time, philo->id);
+	ft_m_printf(philo, "\e[%dm%05ld \e[%dm%03d \e[%dmhas taken a fork\n",
+		ft_get_time() - philo->info->start_time);
 	pthread_mutex_lock(philo->r_fork);
-	ft_m_printf(philo->info, "%05ld %d has taken a fork\n",
-		ft_get_time() - philo->info->start_time, philo->id);
-	ft_m_printf(philo->info, "%05ld %d is eating\n",
-		ft_get_time() - philo->info->start_time, philo->id);
+	ft_m_printf(philo, "\e[%dm%05ld \e[%dm%03d \e[%dmhas taken a fork\n",
+		ft_get_time() - philo->info->start_time);
+	ft_m_printf(philo, "\e[%dm%05ld \e[%dm%03d \e[%dmis eating\n",
+		ft_get_time() - philo->info->start_time);
 	ft_msleep(philo->time_to_eat);
 	ft_save_last_eat(philo);
 	pthread_mutex_unlock(philo->r_fork);
@@ -116,4 +116,39 @@ void	ft_philo_eat(t_philo *philo)
 		ft_grab_forks_odd(philo);
 	else
 		ft_grab_forks_even(philo);
+}
+
+/*
+	NAME
+		ft_philo_odd_sync
+	DESCRIPTION
+		Used in the case of an odd number of philosophers.
+		Adds delay times in between transitions to properly manage scheduling.
+	RETURN
+		Only calls waits or sleeps and does not return a value.
+*/
+
+void	ft_philo_odd_sync(t_philo *philo, int flag)
+{
+	if (flag == 0
+		&& philo->id == 0)
+	{
+		ft_philo_wait(philo);
+		ft_msleep(philo->time_to_eat * 2);
+	}
+	if (flag == 1
+		&& philo->id == 0
+		&& philo->p_num_meals != 0)
+	{
+		ft_philo_wait(philo);
+		if (philo->time_to_eat < philo->info->time_to_die
+			- (philo->time_to_sleep + philo->time_to_eat))
+			ft_msleep(philo->time_to_eat);
+	}
+	if (flag == 2
+		&& philo->id != 0
+		&& philo->time_to_eat < philo->info->time_to_die
+		- (philo->time_to_sleep + philo->time_to_eat))
+		ft_msleep(philo->time_to_eat);
+	return ;
 }
