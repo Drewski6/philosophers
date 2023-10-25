@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/25 16:48:28 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:37:22 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void	ft_msleep(int time_in_ms);
 //	static bool	ft_verify_all_pos(char *arg)
 //	static bool	ft_edgecases(int *arg_int_value, int i);
 //	static bool	ft_verify_arg(char *arg, int *arg_int_value)
+//	static bool	ft_edgecase_arg_sizes(t_info *info)
 bool	ft_arg_parse(int argc, char **argv, t_info *info);
 
 //	ft_utils.c
