@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/25 15:37:13 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:46:24 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 static void	ft_philo_sleep(t_philo *philo)
 {
-	ft_m_printf(philo->info, "%ld %d is sleeping\n",
-		ft_get_time() - philo->info->start_time, philo->id);
+	ft_m_printf(philo, "\e[%dm%05ld \e[%dm%03d \e[%dmis sleeping\n",
+		ft_get_time() - philo->info->start_time);
 	ft_msleep(philo->time_to_sleep);
 	return ;
 }
@@ -40,8 +40,8 @@ static void	ft_philo_sleep(t_philo *philo)
 
 void	ft_philo_wait(t_philo *philo)
 {
-	ft_m_printf(philo->info, "%ld %d is thinking\n",
-		ft_get_time() - philo->info->start_time, philo->id);
+	ft_m_printf(philo, "\e[%dm%05ld \e[%dm%03d \e[%dmis thinking\n",
+		ft_get_time() - philo->info->start_time);
 	ft_msleep(1);
 	return ;
 }

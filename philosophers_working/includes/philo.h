@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/25 15:38:18 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:48:28 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@
 */
 
 # define START_DELAY 100
+# define BLUE 34
+# define YELLOW 33
+# define GREEN 32
+# define RED 31
+# define CLEAR 0
 
 /*
 **	TYPEDEFS
@@ -45,6 +50,13 @@ typedef enum e_ret
 	SUCCESS,
 	FAILURE,
 }	t_ret;
+
+typedef struct s_print_info
+{
+	const char	*s;
+	t_ms		time_stamp;
+	int			id;
+}	t_print_info;
 
 /*
 ** l_fork and r_fork are addresses to m_forks in t_info
@@ -160,6 +172,6 @@ void	ft_philo_eat(t_philo *philo);
 void	ft_philo_odd_sync(t_philo *philo, int flag);
 
 //	philo_print.c
-void	ft_m_printf(t_info *info, const char *s, t_ms time_stamp, int id);
+void	ft_m_printf(t_philo *philo, const char *s, t_ms time_stamp);
 
 #endif
