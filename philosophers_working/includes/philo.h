@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/26 13:08:53 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:09:52 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 /*
 ** MACROS
 */
-#  define START_DELAY 100
+# define START_DELAY 100
 
 # define USE_COLORS
 
