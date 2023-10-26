@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/25 16:48:28 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:09:52 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,25 @@
 /*
 ** MACROS
 */
-
 # define START_DELAY 100
-# define BLUE 34
-# define YELLOW 33
-# define GREEN 32
-# define RED 31
-# define CLEAR 0
+
+# define USE_COLORS
+
+# ifndef USE_COLORS
+#  define BLUE ""
+#  define YELLOW ""
+#  define GREEN ""
+#  define RED ""
+#  define CLEAR ""
+# endif
+
+# ifdef USE_COLORS
+#  define BLUE "\e[34m"
+#  define YELLOW "\e[33m"
+#  define GREEN "\e[32m"
+#  define RED "\e[31m"
+#  define CLEAR "\e[0m"
+# endif
 
 /*
 **	TYPEDEFS
@@ -50,13 +62,6 @@ typedef enum e_ret
 	SUCCESS,
 	FAILURE,
 }	t_ret;
-
-typedef struct s_print_info
-{
-	const char	*s;
-	t_ms		time_stamp;
-	int			id;
-}	t_print_info;
 
 /*
 ** l_fork and r_fork are addresses to m_forks in t_info
@@ -144,6 +149,7 @@ void	ft_msleep(int time_in_ms);
 //	static bool	ft_verify_all_pos(char *arg)
 //	static bool	ft_edgecases(int *arg_int_value, int i);
 //	static bool	ft_verify_arg(char *arg, int *arg_int_value)
+//	static bool	ft_edgecase_arg_sizes(t_info *info)
 bool	ft_arg_parse(int argc, char **argv, t_info *info);
 
 //	ft_utils.c

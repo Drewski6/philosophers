@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:12:55 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/23 18:52:28 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:53:32 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,22 @@ static bool	ft_verify_arg(char *arg, int *arg_int_value)
 }
 
 /*
+	NAME
+		ft_edgecase_arg_values
+	DESCRIPTION
+		Checks for specific edgecases related to argument sizes.
+	RETURN
+		Bool function returns 1 for error and 0 for success.
+*/
+
+static bool	ft_edgecase_arg_values(t_info *info)
+{
+	if (info->time_to_die < info->time_to_eat + info->time_to_sleep)
+		return (1);
+	return (0);
+}
+
+/*
 **	NAME
 		ft_arg_parse
 **	DESCRIPTION
@@ -105,5 +121,7 @@ bool	ft_arg_parse(int argc, char **argv, t_info *info)
 			return (printf("Error: Invalid arguments.\n"), 1);
 		i++;
 	}
+	if (ft_edgecase_arg_values(info))
+		return (printf("Error: Invalid argument values.\n"), 1);
 	return (0);
 }
