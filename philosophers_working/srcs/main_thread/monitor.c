@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/26 12:08:16 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:12:27 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ bool	ft_monitor(t_info *info)
 			pthread_mutex_lock(&info->philos[i].m_data);
 			if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die
 				&& info->philos[i].p_num_meals != info->philos[i].num_tt_eat)
+				return (ft_philo_died(&info->philos[i]),
+					pthread_mutex_unlock(&info->philos[i].m_data), 0);
+			else if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die)
 				return (ft_philo_died(&info->philos[i]),
 					pthread_mutex_unlock(&info->philos[i].m_data), 0);
 			pthread_mutex_unlock(&info->philos[i].m_data);
