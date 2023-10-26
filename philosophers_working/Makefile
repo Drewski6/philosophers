@@ -6,7 +6,7 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 10:49:04 by dpentlan          #+#    #+#              #
-#    Updated: 2023/10/22 23:44:43 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/10/26 13:03:25 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ all: $(NAME) compile_commands.json
 	make -C $(@D)
 
 $(NAME): $(LIBS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) -o $@
 
 COMP_COMMAND = $(CC) -c $(CFLAGS) $(addprefix -I,$(HEADERS_FOLDER)) -MMD -MP $< -o $@
 CONCAT = awk 'FNR==1 && NR!=1 {print ","}{print}'
