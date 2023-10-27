@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/27 13:38:42 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:32:00 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 static void	ft_philo_died(t_philo *philo)
 {
-	ft_m_printf(philo, "%s%05ld %s%03d died%s\n",
+	ft_m_printf(philo, "%s%ld %s%d died%s\n",
 		ft_get_time() - philo->info->start_time);
 	pthread_mutex_lock(&philo->info->m_info_data);
 	philo->info->someone_died = 1;
@@ -98,15 +98,15 @@ bool	ft_monitor(t_info *info)
 		while (i < info->num_philo)
 		{
 			pthread_mutex_lock(&info->philos[i].m_data);
-			if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die
+			if ((ft_get_time() - info->philos[i].last_ate >= info->time_to_die
 				&& info->philos[i].p_num_meals != info->philos[i].num_tt_eat)
-				return (ft_philo_died(&info->philos[i]),
-					pthread_mutex_unlock(&info->philos[i].m_data), 0);
-			else if (ft_get_time() - info->philos[i].last_ate >= info->time_to_die)
+				|| ft_get_time() - info->philos[i].last_ate >= info->time_to_die)
 				return (ft_philo_died(&info->philos[i]),
 					pthread_mutex_unlock(&info->philos[i].m_data), 0);
 			pthread_mutex_unlock(&info->philos[i].m_data);
 			if (ft_check_all_philos_have_eaten(&info->philos[i++]))
+				return (0);
+			if (ft_check_if_philo_dead(info))
 				return (0);
 			usleep(1);
 		}

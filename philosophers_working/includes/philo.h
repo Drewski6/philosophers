@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/27 14:19:35 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:57:38 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 */
 # define START_DELAY 100
 
-# define USE_COLORS
+//# define USE_COLORS
 
 # ifndef USE_COLORS
 #  define BLUE ""
