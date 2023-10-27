@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 17:38:17 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/22 22:48:16 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:53:33 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,25 @@ t_ms	ft_get_time(void)
 		Uses usleep and waits for integer amount of time.
 		Takes integer time and waits for 1 millisecond * int time_in_ms
 **	RETURN
-		Void function does not return a value.
+		Bool function returns 0 is successfully waited for entire time_in_ms
+			or 0 if wait was stopped early by philo dying.
 */
 
-void	ft_msleep(int time_in_ms)
+bool	ft_msleep(t_info *info, int time_in_ms)
 {
-	usleep(time_in_ms * 1000);
+	t_ms	finish_time;
+
+	if (!info)
+		usleep(time_in_ms);
+	else
+	{
+		finish_time = ft_get_time() + time_in_ms;
+		while(ft_get_time() < finish_time)
+		{
+			usleep(time_in_ms * 10);
+			if (ft_check_if_philo_dead(info))
+				return (1);
+		}
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/26 12:10:50 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:01:02 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_philo_sleep(t_philo *philo)
 {
 	ft_m_printf(philo, "%s%05ld %s%03d %sis sleeping\n",
 		ft_get_time() - philo->info->start_time);
-	ft_msleep(philo->time_to_sleep);
+	ft_msleep(philo->info, philo->time_to_sleep);
 	return ;
 }
 
@@ -42,7 +42,7 @@ void	ft_philo_wait(t_philo *philo)
 {
 	ft_m_printf(philo, "%s%05ld %s%03d %sis thinking\n",
 		ft_get_time() - philo->info->start_time);
-	ft_msleep(1);
+	ft_msleep(NULL, 1);
 	return ;
 }
 
@@ -56,7 +56,7 @@ void	ft_philo_wait(t_philo *philo)
 		or 0 if someone_died is set to 0.
 */
 
-static bool	ft_check_if_philo_dead(t_info *info)
+bool	ft_check_if_philo_dead(t_info *info)
 {
 	pthread_mutex_lock(&info->m_info_data);
 	if (info->someone_died)
