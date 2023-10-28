@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 17:38:17 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/27 15:52:57 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:37:56 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	ft_msleep(t_info *info, int time_in_ms)
 	t_ms	finish_time;
 
 	if (!info)
-		usleep(time_in_ms);
+		usleep(time_in_ms * 1000);
 	else
 	{
 		finish_time = ft_get_time() + time_in_ms;

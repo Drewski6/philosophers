@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:19:21 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/27 17:55:53 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:35:21 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static void	ft_save_last_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->m_data);
 	philo->last_ate = ft_get_time();
-	philo->p_num_meals += 1;
+	if (philo->p_num_meals == -1)
+		philo->p_num_meals = 1;
+	else
+		philo->p_num_meals += 1;
 	pthread_mutex_unlock(&philo->m_data);
 }
 
@@ -52,7 +55,10 @@ static void	ft_grab_forks_even(t_philo *philo)
 	if (philo->r_fork == philo->l_fork)
 	{
 		pthread_mutex_lock(&philo->m_data);
-		philo->p_num_meals += 1;
+		if (philo->p_num_meals == -1)
+			philo->p_num_meals = 1;
+		else
+			philo->p_num_meals += 1;
 		pthread_mutex_unlock(&philo->m_data);
 		ft_msleep(philo->info, philo->info->time_to_die);
 		pthread_mutex_unlock(philo->r_fork);
@@ -131,7 +137,8 @@ void	ft_philo_eat(t_philo *philo)
 void	ft_philo_odd_sync(t_philo *philo, int flag)
 {
 	if (flag == 0
-		&& philo->id == 0)
+		&& philo->id == 0
+		&& philo->p_num_meals > 0)
 	{
 		ft_philo_wait(philo);
 		if (ft_msleep(philo->info, philo->time_to_eat * 2))
