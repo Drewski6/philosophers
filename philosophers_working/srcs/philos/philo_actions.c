@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/26 12:10:50 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:53:20 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@
 **	DESCRIPTION
 		Prints that the philosopher is sleeping, then sleeps.
 **	RETURN
-		Void function does not return a value.
+		Bool function returns 0 on success and 1 on failed sleep.
 */
 
-static void	ft_philo_sleep(t_philo *philo)
+static bool	ft_philo_sleep(t_philo *philo)
 {
-	ft_m_printf(philo, "%s%05ld %s%03d %sis sleeping\n",
+	ft_m_printf(philo, "%s%ld %s%d %sis sleeping\n",
 		ft_get_time() - philo->info->start_time);
-	ft_msleep(philo->time_to_sleep);
-	return ;
+	if (ft_msleep(philo->info, philo->time_to_sleep))
+		return (1);
+	return (0);
 }
 
 /*
@@ -40,9 +41,9 @@ static void	ft_philo_sleep(t_philo *philo)
 
 void	ft_philo_wait(t_philo *philo)
 {
-	ft_m_printf(philo, "%s%05ld %s%03d %sis thinking\n",
+	ft_m_printf(philo, "%s%ld %s%d %sis thinking\n",
 		ft_get_time() - philo->info->start_time);
-	ft_msleep(1);
+	ft_msleep(NULL, 1);
 	return ;
 }
 
@@ -56,7 +57,7 @@ void	ft_philo_wait(t_philo *philo)
 		or 0 if someone_died is set to 0.
 */
 
-static bool	ft_check_if_philo_dead(t_info *info)
+bool	ft_check_if_philo_dead(t_info *info)
 {
 	pthread_mutex_lock(&info->m_info_data);
 	if (info->someone_died)
@@ -110,10 +111,10 @@ void	*ft_pthread_entry_point(void *arg)
 			ft_philo_wait(philo);
 		ft_philo_eat(philo);
 		ft_philo_sleep(philo);
-		if (!(philo->id % 2))
-			ft_philo_wait(philo);
 		if (ft_check_if_philo_dead(philo->info))
 			return (0);
+		if (!(philo->id % 2))
+			ft_philo_wait(philo);
 		if (ft_philo_check_num_meals(philo))
 			return (0);
 		if (philo->info->num_philo % 2)

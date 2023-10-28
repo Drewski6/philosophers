@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/26 13:09:52 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:57:38 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 */
 # define START_DELAY 100
 
-# define USE_COLORS
+//# define USE_COLORS
 
 # ifndef USE_COLORS
 #  define BLUE ""
@@ -139,7 +139,7 @@ bool	ft_monitor(t_info *info);
 
 //	time_utils.c
 t_ms	ft_get_time(void);
-void	ft_msleep(int time_in_ms);
+bool	ft_msleep(t_info *info, int time_in_ms);
 
 /*
 **		//	parsing	//
@@ -166,7 +166,7 @@ bool	ft_isdigit(int c);
 //	philo_actions.c
 //	static void	ft_philo_sleep(t_philo *philo);
 void	ft_philo_wait(t_philo *philo);
-//	static bool	ft_check_if_philo_dead(t_philo *philo);
+bool	ft_check_if_philo_dead(t_info *info);
 //	static bool	ft_philo_check_num_meals(t_philo *philo);
 void	*ft_pthread_entry_point(void *arg);
 

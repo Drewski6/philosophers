@@ -6,7 +6,7 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 10:49:04 by dpentlan          #+#    #+#              #
-#    Updated: 2023/10/26 14:00:59 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/10/27 15:21:57 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ NAME			=	philo
 
 OBJ_FOLDER		=	objs/
 
-CFLAGS			=	-Wall -Wextra -Werror # -g -fsanitize=thread
+CFLAGS			=	-Wall -Wextra -Werror -g # -fsanitize=thread
 
 SRC_FOLDER		=	srcs/
 

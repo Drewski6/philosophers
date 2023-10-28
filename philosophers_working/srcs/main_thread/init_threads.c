@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/25 15:39:08 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:03:58 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ static bool	ft_create_philos(t_info *info)
 		info->philos[i].time_to_sleep = info->time_to_sleep;
 		if (info->num_tt_eat)
 			info->philos[i].num_tt_eat = info->num_tt_eat;
+		info->philos[i].p_num_meals = -1;
 		if (pthread_create(&info->philos[i].thread_id, NULL,
 				ft_pthread_entry_point, &info->philos[i]))
 			return (printf("Error: Could not create all philosophers\n"), 1);
