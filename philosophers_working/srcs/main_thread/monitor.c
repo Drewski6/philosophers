@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 10:11:29 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:52:21 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,24 @@ static bool	ft_check_all_philos_have_eaten(t_philo *philo)
 }
 
 /*
+	NAME
+		ft_monitor_die_check
+	DESCRIPTION
+		Runs a specific check to verify a philo should die or not.
+	RETURN
+		Returns 0 on success or 1 on check failure.
+*/
+
+static bool	ft_monitor_die_check(t_info *info, int i)
+{
+	if ((ft_get_time() - info->philos[i].last_ate >= info->time_to_die
+			&& info->philos[i].p_num_meals != info->philos[i].num_tt_eat)
+		|| ft_get_time() - info->philos[i].last_ate >= info->time_to_die)
+		return (ft_philo_died(&info->philos[i]), 1);
+	return (0);
+}
+
+/*
 **	NAME
 		ft_monitor
 **	DESCRIPTION
@@ -98,11 +116,8 @@ bool	ft_monitor(t_info *info)
 		while (i < info->num_philo)
 		{
 			pthread_mutex_lock(&info->philos[i].m_data);
-			if ((ft_get_time() - info->philos[i].last_ate >= info->time_to_die
-				&& info->philos[i].p_num_meals != info->philos[i].num_tt_eat)
-				|| ft_get_time() - info->philos[i].last_ate >= info->time_to_die)
-				return (ft_philo_died(&info->philos[i]),
-					pthread_mutex_unlock(&info->philos[i].m_data), 0);
+			if (ft_monitor_die_check(info, i))
+				return (pthread_mutex_unlock(&info->philos[i].m_data), 0);
 			pthread_mutex_unlock(&info->philos[i].m_data);
 			if (ft_check_all_philos_have_eaten(&info->philos[i++]))
 				return (0);

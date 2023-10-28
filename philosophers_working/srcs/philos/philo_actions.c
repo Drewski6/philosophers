@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 10:38:07 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:53:20 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ void	*ft_pthread_entry_point(void *arg)
 			return (0);
 		if (!(philo->id % 2))
 			ft_philo_wait(philo);
-		if (ft_check_if_philo_dead(philo->info))
-			return (0);
 		if (ft_philo_check_num_meals(philo))
 			return (0);
 		if (philo->info->num_philo % 2)
