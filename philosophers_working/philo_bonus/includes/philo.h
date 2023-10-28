@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/27 15:57:38 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:02:28 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <pthread.h>
 # include <stdint.h>
 # include <stdbool.h>
+# include <semaphore.h>
 
 /*
 ** MACROS
@@ -79,9 +80,9 @@ typedef struct s_philo
 	pthread_t			thread_id;
 	t_ms				last_ate;
 	t_info				*info;
-	pthread_mutex_t		m_data;
-	pthread_mutex_t		*l_fork;
-	pthread_mutex_t		*r_fork;
+	sem_t				s_data;
+	sem_t				*l_fork;
+	sem_t				*r_fork;
 }						t_philo;
 
 /*
@@ -101,10 +102,11 @@ typedef struct s_info
 	int					time_to_sleep;
 	int					num_tt_eat;
 	int					num_philos_waiting;
-	pthread_mutex_t		m_printf;
-	pthread_mutex_t		m_info_data;
-	pthread_mutex_t		m_ready;
-	pthread_mutex_t		*m_forks;
+	sem_t				s_printf;
+	sem_t				s_info_data;
+	sem_t				s_ready;
+	sem_t				*s_forks;
+	int					*pids;
 	t_philo				*philos;
 	t_ms				start_time;
 	bool				someone_died;
@@ -119,7 +121,7 @@ typedef struct s_info
 */
 
 //	destroy_threads.c
-//	static void	ft_destroy_mutexes(t_info *info);
+//	static void	ft_destroy_sems(t_info *info);
 //	static bool	ft_recall_philos(t_info *info);
 void	ft_free_info(t_info *info);
 

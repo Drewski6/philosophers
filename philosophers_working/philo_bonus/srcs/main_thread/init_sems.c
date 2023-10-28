@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_threads.c                                     :+:      :+:    :+:   */
+/*   init_sems.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 10:03:58 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:03:32 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@ static bool	ft_alloc_philos_and_forks(t_info *info)
 	if (!info->philos)
 		return (printf("Error: malloc\n"), 1);
 	ft_bzero(info->philos, sizeof(t_philo) * info->num_philo);
-	info->m_forks = (pthread_mutex_t *)malloc(
+	info->s_forks = (sem_t *)malloc(
 			info->num_philo * sizeof(pthread_mutex_t));
-	if (!info->m_forks)
+	if (!info->s_forks)
 		return (printf("Error: malloc\n"), 1);
-	ft_bzero(info->m_forks, sizeof(pthread_mutex_t) * info->num_philo);
+	ft_bzero(info->s_forks, sizeof(pthread_mutex_t) * info->num_philo);
+	info->pids = (int *)malloc(
+			info->num_philo * sizeof(int));
+	if (!info->pids)
+		return (printf("Error: malloc\n"), 1);
+	ft_bzero(info->pids, sizeof(int) * info->num_philo);
 	return (0);
 }
 
@@ -49,19 +54,19 @@ static bool	ft_init_mutexes(t_info *info)
 {
 	int	i;
 
-	if (pthread_mutex_init(&info->m_ready, NULL))
+	if (sem_init(&info->s_ready, 1, 1))
 		return (1);
-	if (pthread_mutex_init(&info->m_info_data, NULL))
+	if (sem_init(&info->s_info_data, 1, 1))
 		return (1);
-	if (pthread_mutex_init(&info->m_printf, NULL))
+	if (sem_init(&info->s_printf, 1, 1))
 		return (1);
 	i = 0;
 	while (i < info->num_philo)
-		if (pthread_mutex_init(&info->philos[i++].m_data, NULL))
+		if (sem_init(&info->philos[i++].s_data, 1, 1))
 			return (1);
 	i = 0;
 	while (i < info->num_philo)
-		if (pthread_mutex_init(&info->m_forks[i++], NULL))
+		if (sem_init(&info->s_forks[i++], 1, 1))
 			return (1);
 	return (0);
 }
@@ -83,11 +88,11 @@ static void	ft_assign_forks(t_info *info)
 	i = 0;
 	while (i < info->num_philo)
 	{
-		info->philos[i].r_fork = &info->m_forks[i];
+		info->philos[i].r_fork = &info->s_forks[i];
 		if (i == 0)
-			info->philos[i].l_fork = &info->m_forks[info->num_philo - 1];
+			info->philos[i].l_fork = &info->s_forks[info->num_philo - 1];
 		else
-			info->philos[i].l_fork = &info->m_forks[i - 1];
+			info->philos[i].l_fork = &info->s_forks[i - 1];
 		i++;
 	}
 }
@@ -106,7 +111,7 @@ static bool	ft_create_philos(t_info *info)
 	int		i;
 
 	i = 0;
-	pthread_mutex_lock(&info->m_ready);
+	sem_wait(&info->s_ready);
 	while (i < info->num_philo)
 	{
 		info->philos[i].id = i;
@@ -119,6 +124,7 @@ static bool	ft_create_philos(t_info *info)
 		if (info->num_tt_eat)
 			info->philos[i].num_tt_eat = info->num_tt_eat;
 		info->philos[i].p_num_meals = -1;
+		// replace with fork and have child go to ft_pthread_entry_point
 		if (pthread_create(&info->philos[i].thread_id, NULL,
 				ft_pthread_entry_point, &info->philos[i]))
 			return (printf("Error: Could not create all philosophers\n"), 1);
@@ -143,7 +149,7 @@ bool	ft_philo_init(int argc, char **argv, t_info *info)
 	if (argc < 5 || argc > 6)
 		return (printf("Error: Incorrect number of arguments.\n"), 1);
 	info->philos = NULL;
-	info->m_forks = NULL;
+	info->s_forks = NULL;
 	if (ft_arg_parse(argc, argv, info))
 		return (1);
 	if (ft_alloc_philos_and_forks(info))

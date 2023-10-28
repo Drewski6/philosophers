@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:20:15 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 10:52:21 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:59:47 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void	ft_philo_died(t_philo *philo)
 {
 	ft_m_printf(philo, "%s%ld %s%d died%s\n",
 		ft_get_time() - philo->info->start_time);
-	pthread_mutex_lock(&philo->info->m_info_data);
+	sem_wait(&philo->info->s_info_data);
 	philo->info->someone_died = 1;
-	pthread_mutex_unlock(&philo->info->m_info_data);
+	sem_post(&philo->info->s_info_data);
 }
 
 /*
@@ -51,23 +51,23 @@ static bool	ft_check_all_philos_have_eaten(t_philo *philo)
 
 	i = 0;
 	info = philo->info;
-	pthread_mutex_lock(&philo->m_data);
+	sem_wait(&philo->s_data);
 	if (!(philo->num_tt_eat))
-		return (pthread_mutex_unlock(&philo->m_data), 0);
+		return (sem_post(&philo->s_data), 0);
 	if (philo->num_tt_eat != philo->p_num_meals)
-		return (pthread_mutex_unlock(&philo->m_data), 0);
-	pthread_mutex_unlock(&philo->m_data);
-	pthread_mutex_lock(&info->m_info_data);
+		return (sem_post(&philo->s_data), 0);
+	sem_post(&philo->s_data);
+	sem_wait(&info->s_info_data);
 	while (i < info->num_philo)
 	{
-		pthread_mutex_lock(&info->philos[i].m_data);
+		sem_wait(&info->philos[i].s_data);
 		if (info->philos[i].num_tt_eat != info->philos[i].p_num_meals)
-			return (pthread_mutex_unlock(&info->philos[i].m_data),
-				pthread_mutex_unlock(&info->m_info_data), 0);
-		pthread_mutex_unlock(&info->philos[i].m_data);
+			return (sem_post(&info->philos[i].s_data),
+				sem_post(&info->s_info_data), 0);
+		sem_post(&info->philos[i].s_data);
 		i++;
 	}
-	return (pthread_mutex_unlock(&info->m_info_data), 1);
+	return (sem_post(&info->s_info_data), 1);
 }
 
 /*
@@ -104,21 +104,21 @@ bool	ft_monitor(t_info *info)
 {
 	int		i;
 
-	pthread_mutex_lock(&info->m_info_data);
+	sem_wait(&info->s_info_data);
 	while (ft_get_time() < info->start_time)
 		ft_msleep(NULL, 1);
-	pthread_mutex_unlock(&info->m_info_data);
-	pthread_mutex_unlock(&info->m_ready);
+	sem_post(&info->s_info_data);
+	sem_post(&info->s_ready);
 	ft_msleep(NULL, 5);
 	while (1)
 	{
 		i = 0;
 		while (i < info->num_philo)
 		{
-			pthread_mutex_lock(&info->philos[i].m_data);
+			sem_wait(&info->philos[i].s_data);
 			if (ft_monitor_die_check(info, i))
-				return (pthread_mutex_unlock(&info->philos[i].m_data), 0);
-			pthread_mutex_unlock(&info->philos[i].m_data);
+				return (sem_post(&info->philos[i].s_data), 0);
+			sem_post(&info->philos[i].s_data);
 			if (ft_check_all_philos_have_eaten(&info->philos[i++]))
 				return (0);
 			if (ft_check_if_philo_dead(info))

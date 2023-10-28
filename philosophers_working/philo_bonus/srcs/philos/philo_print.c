@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:45:44 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/27 15:52:20 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:01:57 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@
 
 void	ft_m_printf(t_philo *philo, const char *s, t_ms time_stamp)
 {
-	pthread_mutex_lock(&philo->info->m_info_data);
+	sem_wait(&philo->info->s_info_data);
 	if (!philo->info->someone_died)
 	{
-		pthread_mutex_lock(&philo->info->m_printf);
+		sem_wait(&philo->info->s_printf);
 		if (philo->id % 2)
 			printf(s, YELLOW, time_stamp, GREEN, philo->id + 1, CLEAR);
 		else
 			printf(s, YELLOW, time_stamp, RED, philo->id + 1, CLEAR);
-		pthread_mutex_unlock(&philo->info->m_printf);
+		sem_post(&philo->info->s_printf);
 	}
-	pthread_mutex_unlock(&philo->info->m_info_data);
+	sem_post(&philo->info->s_info_data);
 }

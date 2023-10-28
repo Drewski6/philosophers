@@ -6,7 +6,7 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 10:49:04 by dpentlan          #+#    #+#              #
-#    Updated: 2023/10/28 14:16:03 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/10/28 14:47:35 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ SRC 			=	parsing/arg_parse.c \
 					parsing/ft_utils.c \
 					main_thread/monitor.c \
 					main_thread/philo.c \
-					main_thread/init_threads.c \
-					main_thread/destroy_threads.c \
+					main_thread/init_sems.c \
+					main_thread/destroy_sems.c \
 					main_thread/time_utils.c \
 					philos/philo_actions.c \
 					philos/philo_eating.c \

@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 10:53:20 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:00:50 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void	ft_philo_wait(t_philo *philo)
 
 bool	ft_check_if_philo_dead(t_info *info)
 {
-	pthread_mutex_lock(&info->m_info_data);
+	sem_wait(&info->s_info_data);
 	if (info->someone_died)
-		return (pthread_mutex_unlock(&info->m_info_data), 1);
+		return (sem_post(&info->s_info_data), 1);
 	else
-		return (pthread_mutex_unlock(&info->m_info_data), 0);
+		return (sem_post(&info->s_info_data), 0);
 }
 
 /*
@@ -78,10 +78,10 @@ bool	ft_check_if_philo_dead(t_info *info)
 
 static bool	ft_philo_check_num_meals(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->m_data);
+	sem_wait(&philo->s_data);
 	if (philo->p_num_meals == philo->num_tt_eat)
-		return (pthread_mutex_unlock(&philo->m_data), 1);
-	return (pthread_mutex_unlock(&philo->m_data), 0);
+		return (sem_post(&philo->s_data), 1);
+	return (sem_post(&philo->s_data), 0);
 }
 
 /*
@@ -99,8 +99,8 @@ void	*ft_pthread_entry_point(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
-	pthread_mutex_lock(&philo->info->m_ready);
-	pthread_mutex_unlock(&philo->info->m_ready);
+	sem_wait(&philo->info->s_ready);
+	sem_post(&philo->info->s_ready);
 	if (philo->info->num_philo % 2)
 		ft_philo_odd_sync(philo, 0);
 	while (1)

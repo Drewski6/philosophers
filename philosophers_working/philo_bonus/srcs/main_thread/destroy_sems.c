@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_threads.c                                  :+:      :+:    :+:   */
+/*   destroy_sems.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:24:20 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/23 00:54:44 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:54:12 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static bool	ft_recall_philos(t_info *info)
 	while (i < info->num_philo)
 	{
 		current = &(info->philos[i].thread_id);
+		// replace with kill?
 		ret = pthread_join(*current, NULL);
 		if (ret == 3)
 			return (1);
@@ -41,26 +42,26 @@ static bool	ft_recall_philos(t_info *info)
 
 /*
 **	NAME
-		ft_destroy_mutexes
+		ft_destroy_semss
 **	DESCRIPTION
-		Destroys mutexes to wrap up.
+		Destroys semaphores to wrap up.
 **	RETURN
 		Void function does not return a value.
 */
 
-static void	ft_destroy_mutexes(t_info *info)
+static void	ft_destroy_sems(t_info *info)
 {
 	int	i;
 
-	pthread_mutex_destroy(&info->m_ready);
-	pthread_mutex_destroy(&info->m_info_data);
-	pthread_mutex_destroy(&info->m_printf);
+	sem_destroy(&info->s_ready);
+	sem_destroy(&info->s_info_data);
+	sem_destroy(&info->s_printf);
 	i = 0;
 	while (i < info->num_philo)
-		pthread_mutex_destroy(&info->philos[i++].m_data);
+		sem_destroy(&info->philos[i++].s_data);
 	i = 0;
 	while (i < info->num_philo)
-		pthread_mutex_destroy(&info->m_forks[i++]);
+		sem_destroy(&info->s_forks[i++]);
 }
 
 /*
@@ -77,11 +78,11 @@ void	ft_free_info(t_info *info)
 {
 	if (info->philos)
 		ft_recall_philos(info);
-	if (info->m_forks)
+	if (info->s_forks)
 	{
-		ft_destroy_mutexes(info);
-		free(info->m_forks);
-		info->m_forks = NULL;
+		ft_destroy_sems(info);
+		free(info->s_forks);
+		info->s_forks = NULL;
 	}
 	if (info->philos)
 	{
