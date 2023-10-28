@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:24:20 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 15:10:28 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:55:30 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ static void	ft_destroy_sems(t_info *info)
 {
 	int	i;
 
-	sem_destroy(&info->s_ready);
-	sem_destroy(&info->s_info_data);
-	sem_destroy(&info->s_printf);
+	sem_destroy(info->s_ready);
+	sem_destroy(info->s_info_data);
+	sem_destroy(info->s_printf);
 	i = 0;
 	while (i < info->num_philo)
-		sem_destroy(&info->philos[i++].s_data);
+		sem_destroy(info->philos[i++].s_data);
 	i = 0;
 	while (i < info->num_philo)
 		sem_destroy(&info->s_forks[i++]);

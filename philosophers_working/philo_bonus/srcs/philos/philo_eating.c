@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:19:21 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 15:01:28 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:56:21 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 
 static void	ft_save_last_eat(t_philo *philo)
 {
-	sem_wait(&philo->s_data);
+	sem_wait(philo->s_data);
 	philo->last_ate = ft_get_time();
 	if (philo->p_num_meals == -1)
 		philo->p_num_meals = 1;
 	else
 		philo->p_num_meals += 1;
-	sem_post(&philo->s_data);
+	sem_post(philo->s_data);
 }
 
 /*
@@ -54,12 +54,12 @@ static void	ft_grab_forks_even(t_philo *philo)
 		ft_get_time() - philo->info->start_time);
 	if (philo->r_fork == philo->l_fork)
 	{
-		sem_wait(&philo->s_data);
+		sem_wait(philo->s_data);
 		if (philo->p_num_meals == -1)
 			philo->p_num_meals = 1;
 		else
 			philo->p_num_meals += 1;
-		sem_post(&philo->s_data);
+		sem_post(philo->s_data);
 		ft_msleep(philo->info, philo->info->time_to_die);
 		sem_post(philo->r_fork);
 		return ;

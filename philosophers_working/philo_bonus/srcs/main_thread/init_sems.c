@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 15:15:46 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:20:29 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
 
 static bool	ft_alloc_philos_and_forks(t_info *info)
 {
+	info->s_forks = (sem_t *)malloc(
+			info->num_philo * sizeof(sem_t));
+	if (!info->s_forks)
+		return (printf("Error: malloc\n"), 1);
+	ft_bzero(info->s_forks, sizeof(sem_t) * info->num_philo);
 	info->philos = (t_philo *)malloc(info->num_philo * sizeof(t_philo));
 	if (!info->philos)
 		return (printf("Error: malloc\n"), 1);
 	ft_bzero(info->philos, sizeof(t_philo) * info->num_philo);
-	info->s_forks = (sem_t *)malloc(
-			info->num_philo * sizeof(pthread_mutex_t));
-	if (!info->s_forks)
-		return (printf("Error: malloc\n"), 1);
-	ft_bzero(info->s_forks, sizeof(pthread_mutex_t) * info->num_philo);
 	info->pids = (int *)malloc(
 			info->num_philo * sizeof(pid_t));
 	if (!info->pids)
@@ -43,32 +43,41 @@ static bool	ft_alloc_philos_and_forks(t_info *info)
 
 /*
 **	NAME
-		ft_init_mutexes
+		ft_init_sems
 **	DESCRIPTION
 		Initializes all mutexes that will be used.
 **	RETURN
 		Returns 0 on Success and 1 on Failure.
 */
 
-static bool	ft_init_mutexes(t_info *info)
+static bool	ft_init_sems(t_info *info)
 {
 	int	i;
-		// replace with fork and have child go to ft_pthread_entry_point
 
-	if (sem_init(&info->s_ready, 1, 1))
-		return (1);
-	if (sem_init(&info->s_info_data, 1, 1))
-		return (1);
-	if (sem_init(&info->s_printf, 1, 1))
-		return (1);
 	i = 0;
+	info->s_ready = sem_open("/s_ready", O_CREAT, 0644, 1);
+	info->s_info_data = sem_open("/s_info_data", O_CREAT, 0644, 1);
+	info->s_printf = sem_open("/s_printf", O_CREAT, 0644, 1);
+	// info->s_forks = sem_open("/s_forks", O_CREAT, 0644, info->num_philo);
+	if (info->s_ready <= 0 || info->s_info_data <= 0 || info->s_printf <= 0)
+		// || info->s_forks <= 0)
+		return (1);
 	while (i < info->num_philo)
-		if (sem_init(&info->philos[i++].s_data, 1, 1))
+	{
+		info->s_forks = sem_open("/s_forks",
+				O_CREAT, 0644, 1);
+		if (info->s_forks <= 0)
 			return (1);
-	i = 0;
+		i++;
+	}
 	while (i < info->num_philo)
-		if (sem_init(&info->s_forks[i++], 1, 1))
+	{
+		info->philos[i].s_data = sem_open("/s_data",
+				O_CREAT, 0644, 1);
+		if (info->philos[i].s_data <= 0)
 			return (1);
+		i++;
+	}
 	return (0);
 }
 
@@ -112,7 +121,7 @@ static bool	ft_create_philos(t_info *info)
 	int		i;
 
 	i = 0;
-	sem_wait(&info->s_ready);
+	sem_wait(info->s_ready);
 	while (i < info->num_philo)
 	{
 		info->philos[i].id = i;
@@ -133,7 +142,7 @@ static bool	ft_create_philos(t_info *info)
 			return (printf("Error: Could not create all philosophers\n"), 1);
 		else if (info->pids[i] == 0)
 		{
-			ft_pthread_entry_point(info);
+			ft_pthread_entry_point(&info->philos[i]);
 			exit(SUCCESS);
 			// theres gonna be a massive leak here lol.
 		}
@@ -163,9 +172,9 @@ bool	ft_philo_init(int argc, char **argv, t_info *info)
 		return (1);
 	if (ft_alloc_philos_and_forks(info))
 		return (ft_free_info(info), 1);
-	if (ft_init_mutexes(info))
+	if (ft_init_sems(info))
 	{
-		printf("Error: pthread_mutex_init: failed to initialize mutex.");
+		printf("Error: sem_open: failed to open semaphore.");
 		return (ft_free_info(info), 1);
 	}
 	info->start_time = ft_get_time() + START_DELAY;

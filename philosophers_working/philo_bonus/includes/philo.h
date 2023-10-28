@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 15:11:38 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:51:23 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # include <pthread.h>
 # include <stdint.h>
 # include <stdbool.h>
@@ -81,7 +83,7 @@ typedef struct s_philo
 	pthread_t			thread_id;
 	t_ms				last_ate;
 	t_info				*info;
-	sem_t				s_data;
+	sem_t				*s_data;
 	sem_t				*l_fork;
 	sem_t				*r_fork;
 }						t_philo;
@@ -103,9 +105,9 @@ typedef struct s_info
 	int					time_to_sleep;
 	int					num_tt_eat;
 	int					num_philos_waiting;
-	sem_t				s_printf;
-	sem_t				s_info_data;
-	sem_t				s_ready;
+	sem_t				*s_printf;
+	sem_t				*s_info_data;
+	sem_t				*s_ready;
 	sem_t				*s_forks;
 	pid_t				*pids;
 	t_philo				*philos;
@@ -128,7 +130,7 @@ void	ft_free_info(t_info *info);
 
 //	init_threads.c
 //	static bool	ft_alloc_philos_and_forks(t_info *info);
-//	static bool	ft_init_mutexes(t_info *info);
+//	static bool	ft_init_sems(t_info *info);
 //	static void	ft_assign_forks(t_info *info);
 //	static bool	ft_create_philos(t_info *info);
 bool	ft_philo_init(int argc, char **argv, t_info *info);
