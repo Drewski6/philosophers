@@ -1,10 +1,11 @@
+*/philo_bonus
 */philo
 */objs/*/*.o
 */objs/*/*.d
 */objs/*/*.cc
 */.cache/
 */.cache/*
+.cache/*
 */gdb.txt
 */compile_commands.json
 */thales_tester/
-.cache/*

@@ -6,7 +6,7 @@
 #    By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 10:49:04 by dpentlan          #+#    #+#              #
-#    Updated: 2023/10/28 14:03:00 by dpentlan         ###   ########.fr        #
+#    Updated: 2023/10/28 14:16:03 by dpentlan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC 			=	parsing/arg_parse.c \
 					philos/philo_eating.c \
 					philos/philo_print.c \
 
-NAME			=	philo
+NAME			=	philo_bonus
 
 OBJ_FOLDER		=	objs/
 
