@@ -1,10 +1,10 @@
 */philo
 */objs/*/*.o
-*/obobjs/*/*.d
-*/obobjs/*/*.cc
-*/.cobache/
-*/.cobache/*
-*/gdobb.txt
-*/coobmpile_commands.json
-*/thobales_tester/
+*/objs/*/*.d
+*/objs/*/*.cc
+*/.cache/
+*/.cache/*
+*/gdb.txt
+*/compile_commands.json
+*/thales_tester/
 .cache/*
