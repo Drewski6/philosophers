@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:24:20 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 14:54:12 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:10:28 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@ static bool	ft_recall_philos(t_info *info)
 {
 	int			i;
 	int			ret;
-	pthread_t	*current;
+	int			current;
 
 	i = 0;
 	while (i < info->num_philo)
 	{
-		current = &(info->philos[i].thread_id);
-		// replace with kill?
-		ret = pthread_join(*current, NULL);
+		// current = &(info->philos[i].thread_id);
+		// ret = pthread_join(*current, NULL);
+		// replace with kill? or maybe waitpid.
+		current = info->pids[i];
+		ret = kill(current, SIGINT);
 		if (ret == 3)
 			return (1);
 		i++;

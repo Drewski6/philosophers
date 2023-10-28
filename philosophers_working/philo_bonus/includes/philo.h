@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 15:02:28 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:11:38 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include <semaphore.h>
+# include <signal.h>
 
 /*
 ** MACROS
@@ -106,7 +107,7 @@ typedef struct s_info
 	sem_t				s_info_data;
 	sem_t				s_ready;
 	sem_t				*s_forks;
-	int					*pids;
+	pid_t				*pids;
 	t_philo				*philos;
 	t_ms				start_time;
 	bool				someone_died;

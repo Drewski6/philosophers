@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:18:43 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 15:03:32 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:15:46 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static bool	ft_alloc_philos_and_forks(t_info *info)
 		return (printf("Error: malloc\n"), 1);
 	ft_bzero(info->s_forks, sizeof(pthread_mutex_t) * info->num_philo);
 	info->pids = (int *)malloc(
-			info->num_philo * sizeof(int));
+			info->num_philo * sizeof(pid_t));
 	if (!info->pids)
 		return (printf("Error: malloc\n"), 1);
-	ft_bzero(info->pids, sizeof(int) * info->num_philo);
+	ft_bzero(info->pids, sizeof(pid_t) * info->num_philo);
 	return (0);
 }
 
@@ -53,6 +53,7 @@ static bool	ft_alloc_philos_and_forks(t_info *info)
 static bool	ft_init_mutexes(t_info *info)
 {
 	int	i;
+		// replace with fork and have child go to ft_pthread_entry_point
 
 	if (sem_init(&info->s_ready, 1, 1))
 		return (1);
@@ -124,10 +125,18 @@ static bool	ft_create_philos(t_info *info)
 		if (info->num_tt_eat)
 			info->philos[i].num_tt_eat = info->num_tt_eat;
 		info->philos[i].p_num_meals = -1;
+		// if (pthread_create(&info->philos[i].thread_id, NULL,
+		// 		ft_pthread_entry_point, &info->philos[i]))
 		// replace with fork and have child go to ft_pthread_entry_point
-		if (pthread_create(&info->philos[i].thread_id, NULL,
-				ft_pthread_entry_point, &info->philos[i]))
+		info->pids[i] = fork();
+		if (info->pids[i] == -1)
 			return (printf("Error: Could not create all philosophers\n"), 1);
+		else if (info->pids[i] == 0)
+		{
+			ft_pthread_entry_point(info);
+			exit(SUCCESS);
+			// theres gonna be a massive leak here lol.
+		}
 		i++;
 	}
 	return (0);
