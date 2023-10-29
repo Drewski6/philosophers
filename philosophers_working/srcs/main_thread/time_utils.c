@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 17:38:17 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 10:48:01 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/29 20:07:56 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ t_ms	ft_get_time(void)
 **	DESCRIPTION
 		Uses usleep and waits for integer amount of time.
 		Takes integer time and waits for 1 millisecond * int time_in_ms
+		If pointer to info struct is given, does not return until indicated
+			time has passed. Uses current time to check if appropriate amount
+			if time has passed before returning.
+			Also checks every millisecond if someone has died.
 **	RETURN
 		Bool function returns 0 is successfully waited for entire time_in_ms
 			or 0 if wait was stopped early by philo dying.

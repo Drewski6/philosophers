@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:19:21 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 10:35:21 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:38:08 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,24 +137,20 @@ void	ft_philo_eat(t_philo *philo)
 void	ft_philo_odd_sync(t_philo *philo, int flag)
 {
 	if (flag == 0
+		&& philo->id == 0)
+	{
+		ft_philo_wait(philo);
+		ft_msleep(philo->info, philo->time_to_eat * 2);
+	}
+	else if (flag == 1
 		&& philo->id == 0
 		&& philo->p_num_meals > 0)
 	{
-		ft_philo_wait(philo);
-		if (ft_msleep(philo->info, philo->time_to_eat * 2))
-			return ;
-	}
-	if (flag == 1
-		&& philo->id == 0
-		&& philo->p_num_meals != 0)
-	{
-		ft_philo_wait(philo);
 		if (philo->time_to_eat < philo->info->time_to_die
 			- (philo->time_to_sleep + philo->time_to_eat))
 			ft_msleep(philo->info, philo->time_to_eat);
-		return ;
 	}
-	if (flag == 2
+	else if (flag == 2
 		&& philo->id != 0
 		&& philo->time_to_eat < philo->info->time_to_die
 		- (philo->time_to_sleep + philo->time_to_eat))

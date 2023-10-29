@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 15:39:59 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/28 10:53:20 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:35:40 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,10 @@ void	*ft_pthread_entry_point(void *arg)
 		ft_philo_odd_sync(philo, 0);
 	while (1)
 	{
-		if (philo->info->num_philo % 2)
-			ft_philo_odd_sync(philo, 1);
 		if (philo->id % 2)
 			ft_philo_wait(philo);
+		if (philo->info->num_philo % 2)
+			ft_philo_odd_sync(philo, 1);
 		ft_philo_eat(philo);
 		ft_philo_sleep(philo);
 		if (ft_check_if_philo_dead(philo->info))
