@@ -6,7 +6,7 @@
 /*   By: dpentlan <dpentlan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:57:19 by dpentlan          #+#    #+#             */
-/*   Updated: 2023/10/29 21:48:27 by dpentlan         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:55:02 by dpentlan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ typedef enum e_ret
 }	t_ret;
 
 /*
+**	num_philo		Total number of philosophers.
+**	time_to_die		Time a philosopher can survive without eating.
+**	time_to_eat		How long it takes for a philosopher to eat.
+**	time_to_sleep	how long it takes for a philosopher to sleep.
+**	num_tt_eat		(Optional): Minimum number of times each philosophers
+**						should eat before simulation should stop.
 ** l_fork and r_fork are addresses to m_forks in t_info
 */
 
@@ -83,15 +89,6 @@ typedef struct s_philo
 	pthread_mutex_t		*l_fork;
 	pthread_mutex_t		*r_fork;
 }						t_philo;
-
-/*
-**	num_philo		Total number of philosophers.
-**	time_to_die		Time a philosopher can survive without eating.
-**	time_to_eat		How long it takes for a philosopher to eat.
-**	time_to_sleep	how long it takes for a philosopher to sleep.
-**	num_tt_eat		(Optional): Minimum number of times each philosophers
-**						should eat before simulation should stop.
-*/
 
 typedef struct s_info
 {
